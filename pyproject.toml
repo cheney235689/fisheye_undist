@@ -1,0 +1,36 @@
+[project]
+name = "fisheye-undist"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy==2.4.6",
+    "opencv-python==5.0.0.93",
+    "requests==2.34.2",
+    "pyyaml==6.0.3",
+    "matplotlib==3.11.2",
+    "torch==2.14.1",
+    "timm>=1.0.30",
+    "mlflow>=3.16.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==9.1.1",
+]
+
+# PyPI's `torch` wheel is CPU-only. SPEC.md 7 wants the CUDA build for Phase 2
+# training on the RTX 4070, and that lives on PyTorch's own index, so pull
+# torch from there while everything else stays on PyPI.
+#
+# cu130 (CUDA 13.0): `nvidia-smi` reports driver 610.62 / CUDA 13.3, and CUDA
+# is backward compatible, so a 13.0 build runs on it.  cu130 also carries the
+# newest torch for cp311/win_amd64 (2.14.1); the cu128 index stops at 2.11.0.
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true

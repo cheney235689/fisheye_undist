@@ -1,0 +1,26 @@
+# ViT-S/16 counterpart of the ResNet-34 run.
+#
+# Data, loss, schedule and step budget are held fixed across the two runs; the
+# optimiser is NOT. Each architecture gets the hyperparameters it actually
+# wants, because comparing a tuned CNN against a detuned ViT would measure the
+# tuning, not the architecture (SPEC.md 1.2, 3.13).
+#
+# ViT-S/16 is unstable at the ResNet's 3e-4: an --overfit-batch 300 run at that
+# rate swung between 0.006 and 0.056 and ended 54x short of the ResNet. Hence
+# the lower lr, and the much larger weight decay that ViT training normally
+# uses (with the no-decay rule in train.py keeping it off pos_embed, cls_token,
+# biases and norms).
+run_name: vit_small_pre_p100_geo_s0
+model: vit_small_patch16_224
+pretrained: true
+data: { root: data_root, subset: p100, mode: offline }
+loss: geometric
+optim: { lr: 1.0e-4, weight_decay: 0.05, warmup_steps: 500 }
+schedule: cosine
+total_steps: 6000
+batch_size: 128
+precision: bf16
+eval_every: 500
+seed: 0
+grad_clip: 1.0
+num_workers: 6

@@ -1,0 +1,15 @@
+# ResNet-34, ImageNet-pretrained, full train subset, geometric loss (SPEC.md 3.13).
+run_name: resnet34_pre_p100_geo_s0
+model: resnet34
+pretrained: true
+data: { root: data_root, subset: p100, mode: offline }
+loss: geometric
+optim: { lr: 3.0e-4, weight_decay: 1.0e-4, warmup_steps: 500 }
+schedule: cosine
+total_steps: 6000
+batch_size: 128
+precision: bf16
+eval_every: 500
+seed: 0
+grad_clip: 1.0
+num_workers: 6

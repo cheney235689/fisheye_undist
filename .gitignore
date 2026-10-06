@@ -1,0 +1,27 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Local agent settings
+.claude/settings.local.json
+repomix-output.md
+
+# Data, renders and experiment tracking (SPEC.md 2.2)
+data_root/
+mlruns/
+*.npy
+*.pt
+*.ckpt
+
+# Local scratch / one-off checking scripts
+scratch/
+
+# MLflow local SQLite backend (SPEC.md 3.13)
+mlflow.db

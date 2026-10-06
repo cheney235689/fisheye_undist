@@ -1,0 +1,46 @@
+# Data generation config (SPEC.md 4.6, 4.10).
+# Every random choice in the pipeline derives from `seed`.
+
+data_root: data_root
+manifest: data_root/manifest.json
+splits: data_root/splits.json
+
+# --- rendering -------------------------------------------------------------
+image_size: 224
+supersample: 4
+pano_resize: [1024, 512]        # width, height (SPEC.md 4.4)
+
+# --- camera parameter sampling --------------------------------------------
+circular_prob: 0.5
+fov_deg: [100, 220]             # full angle at r_ref
+xi: [0.0, 1.5]
+feasibility_margin: 0.05
+f_min_px: 30
+# Largest radial magnification allowed at the edge of the view, relative to
+# the centre (SPEC.md 4.6 condition 4).  4.0 is a 120 deg rectilinear lens.
+max_edge_stretch: 4.0
+yaw_deg: [-180, 180]
+pitch_deg: [-30, 30]
+roll_deg: [-15, 15]
+
+# --- dataset size ----------------------------------------------------------
+# `stress` is the out-of-distribution set built from exclude_categories
+# (SPEC.md 4.10.1); it is evaluated like test, so it gets the same view count.
+views_per_pano:
+  train: 30
+  val: 20
+  test: 20
+  stress: 20
+
+# --- splitting -------------------------------------------------------------
+split_ratio: [0.8, 0.1, 0.1]
+train_subsets:
+  p10: 0.10
+  p30: 0.30
+  p100: 1.0
+# Matched against primary_category; a group with any matching member is
+# excluded whole (SPEC.md 4.10.1).
+exclude_categories:
+  - Pure Skies
+
+seed: 0

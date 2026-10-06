@@ -1,0 +1,6 @@
+# ResNet-34 learning-rate sweep (SPEC.md 3.13).
+# One config path per line; blank lines and # comments are ignored.
+# The 3.0e-4 arm is already FINISHED in mlflow.db, so sweep.py will skip it.
+configs/train/resnet34_pre_p100_geo_lr1e-4_s0.yaml
+configs/train/resnet34_pre_p100_geo_s0.yaml
+configs/train/resnet34_pre_p100_geo_lr1e-3_s0.yaml
