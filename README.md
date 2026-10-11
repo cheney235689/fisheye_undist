@@ -97,6 +97,8 @@ The hinge is the part with a slope pointing back into the valid region.
 
 ## Results so far
 
+**These numbers are still moving — the learning-rate sweep is not finished.**
+
 Everything is measured as mean reprojection error on val, in pixels.
 
 The floor is a **constant predictor** that never looks at the image. The weak
@@ -115,8 +117,13 @@ mean, precisely because of the `f`/`ξ` degeneracy.
 For scale, 5 px on the median val camera is roughly an 8% focal-length error,
 or a `ξ` off by 0.13.
 
-A single-batch overfit test reaches 0.26 px with ResNet-34, so the gap at
-4.32 px is generalisation, not capacity.
+A single-batch overfit test reaches 0.26 px with ResNet-34, so capacity is
+not the constraint. But in the real runs the train and validation losses sit
+almost on top of each other (about 0.019 vs 0.020), which makes this **high
+bias — underfitting — rather than a generalisation gap**. The remaining error
+is therefore either undertraining, or samples that are genuinely unreadable:
+low-texture frames with no geometric cue, and the `f`/`ξ` degeneracy. The
+learning-rate sweep and longer runs are what separate those two.
 
 ViT-S/16 is unstable at the ResNet's learning rate — an overfit run swung
 between 0.006 and 0.056 and finished 54× short — so the two architectures get

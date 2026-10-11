@@ -4,3 +4,7 @@
 configs/train/resnet34_pre_p100_geo_lr1e-4_s0.yaml
 configs/train/resnet34_pre_p100_geo_s0.yaml
 configs/train/resnet34_pre_p100_geo_lr1e-3_s0.yaml
+# Extension: 1e-3 was the best arm above and sat at the top of the range,
+# so the optimum may be higher still.
+configs/train/resnet34_pre_p100_geo_lr3e-3_s0.yaml
+configs/train/resnet34_pre_p100_geo_lr1e-2_s0.yaml

@@ -174,15 +174,35 @@ def test_empty_list_file_is_an_error(tmp_path: Path) -> None:
 
 
 def test_shipped_sweep_list_points_at_real_configs() -> None:
+    """Every listed arm must exist, load, and test a distinct learning rate.
+
+    Deliberately not pinned to a fixed arm count: the list grows as the sweep
+    is extended, and a test that has to be edited for each new arm would just
+    get edited without being read.
+    """
     configs = read_config_list("configs/sweeps/resnet34_lr.txt")
-    assert len(configs) == 3
+    assert len(configs) >= 3
     for path in configs:
         assert path.is_file(), path
 
     from train import load_config
 
-    rates = sorted(load_config(p).optim.lr for p in configs)
-    assert rates == pytest.approx([1.0e-4, 3.0e-4, 1.0e-3])
+    loaded = [load_config(p) for p in configs]
+    rates = [cfg.optim.lr for cfg in loaded]
+    assert len(set(rates)) == len(rates), f"duplicate learning rates: {rates}"
+    assert all(rate > 0 for rate in rates)
+
+    # The arms that have already been run must stay in the list, or a re-run
+    # would silently drop them from the comparison.
+    assert {1.0e-4, 3.0e-4, 1.0e-3} <= set(rates)
+
+    # The sweep varies the learning rate and nothing else.
+    varying = {
+        key
+        for key in loaded[0].flat()
+        if len({cfg.flat()[key] for cfg in loaded}) > 1
+    }
+    assert varying == {"run_name", "optim.lr"}, varying
 
 
 # --- skipping finished runs -------------------------------------------------

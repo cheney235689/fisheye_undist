@@ -38,8 +38,9 @@ train_subsets:
   p10: 0.10
   p30: 0.30
   p100: 1.0
-# Matched against primary_category; a group with any matching member is
-# excluded whole (SPEC.md 4.10.1).
+# Matched against primary_category. Exclusion is per asset: only the matching
+# asset is held out into the `stress` list, while the rest of its group is
+# assigned to train/val/test as usual (SPEC.md 4.10.1).
 exclude_categories:
   - Pure Skies
 
