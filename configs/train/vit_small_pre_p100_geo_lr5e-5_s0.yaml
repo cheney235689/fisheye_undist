@@ -1,0 +1,23 @@
+# ViT-S/16 learning-rate sweep, arm lr = 5.0e-5.
+#
+# Identical to vit_small_pre_p100_geo_s0.yaml except for run_name and optim.lr,
+# so the sweep isolates the learning rate (SPEC.md 3.13). The 1.0e-4 arm is
+# that base config itself.
+#
+# ViT-S/16 is unstable at the ResNet's 3e-4: an --overfit-batch 300 run at that
+# rate swung between 0.006 and 0.056 and ended 54x short of the ResNet, which
+# is why this sweep brackets a lower rate rather than reusing the CNN's.
+run_name: vit_small_pre_p100_geo_lr5e-5_s0
+model: vit_small_patch16_224
+pretrained: true
+data: { root: data_root, subset: p100, mode: offline }
+loss: geometric
+optim: { lr: 5.0e-5, weight_decay: 0.05, warmup_steps: 500 }
+schedule: cosine
+total_steps: 6000
+batch_size: 128
+precision: bf16
+eval_every: 500
+seed: 0
+grad_clip: 1.0
+num_workers: 6

@@ -1,0 +1,24 @@
+# ViT-S/16 learning-rate sweep, extension arm lr = 2.0e-5.
+#
+# 5e-5 is the best arm so far (3.86 px) but it sits at the bottom of the
+# swept range, so the optimum is not yet bracketed -- the same situation the
+# ResNet sweep was in at 1e-3, which turned out to have a better arm beyond
+# the edge. This arm checks below 5e-5; if the error rises here, the ViT
+# optimum is bracketed and 5e-5 can be selected.
+#
+# Identical to vit_small_pre_p100_geo_lr5e-5_s0.yaml except for run_name and
+# optim.lr (SPEC.md 3.13).
+run_name: vit_small_pre_p100_geo_lr2e-5_s0
+model: vit_small_patch16_224
+pretrained: true
+data: { root: data_root, subset: p100, mode: offline }
+loss: geometric
+optim: { lr: 2.0e-5, weight_decay: 0.05, warmup_steps: 500 }
+schedule: cosine
+total_steps: 6000
+batch_size: 128
+precision: bf16
+eval_every: 500
+seed: 0
+grad_clip: 1.0
+num_workers: 6

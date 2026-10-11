@@ -1,0 +1,28 @@
+# ResNet-34 loss ablation: param_l1 instead of geometric.
+#
+# Deliberately reuses lr 3.0e-3, the rate selected by the *geometric* sweep,
+# so the loss is the only variable. Re-tuning the rate for param_l1 would
+# confound the comparison with the tuning; the risk in the other direction --
+# that 3e-3 happens to suit geometric better -- is the lesser one, and is
+# noted here rather than silently absorbed.
+#
+# What this ablation is for: (f, xi) are partly degenerate, so a small
+# parameter error does not imply a small geometric error. param_l1 optimises
+# the former while the metric reports the latter, and this run measures what
+# that mismatch costs (SPEC.md 1.4.1, 4.8).
+#
+# Identical to resnet34_pre_p100_geo_lr3e-3_s0.yaml except for run_name and loss.
+run_name: resnet34_pre_p100_l1_lr3e-3_s0
+model: resnet34
+pretrained: true
+data: { root: data_root, subset: p100, mode: offline }
+loss: param_l1
+optim: { lr: 3.0e-3, weight_decay: 1.0e-4, warmup_steps: 500 }
+schedule: cosine
+total_steps: 6000
+batch_size: 128
+precision: bf16
+eval_every: 500
+seed: 0
+grad_clip: 1.0
+num_workers: 6

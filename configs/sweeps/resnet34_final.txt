@@ -1,0 +1,17 @@
+# ResNet-34 selected setting: seed replicates and the loss ablation.
+# One config path per line; blank lines and # comments are ignored.
+#
+# lr 3.0e-3 is the winner of configs/sweeps/resnet34_lr.txt, where the curve
+# finally turns over (best val reprojection error, mean, in px):
+#
+#     1e-4   5.56
+#     3e-4   4.98
+#     1e-3   4.32
+#     3e-3   4.22   <- selected
+#     1e-2   4.75
+#
+# The s0 run at 3e-3 is already FINISHED, so sweep.py will skip it; these are
+# the two extra seeds plus the param_l1 ablation at the same rate.
+configs/train/resnet34_pre_p100_geo_lr3e-3_s1.yaml
+configs/train/resnet34_pre_p100_geo_lr3e-3_s2.yaml
+configs/train/resnet34_pre_p100_l1_lr3e-3_s0.yaml

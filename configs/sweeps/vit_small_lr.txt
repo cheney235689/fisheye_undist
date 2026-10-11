@@ -1,0 +1,18 @@
+# ViT-S/16 learning-rate sweep (SPEC.md 3.13).
+# One config path per line; blank lines and # comments are ignored.
+#
+# Bracketed around 1e-4 rather than the ResNet's 3e-4: ViT-S/16 is unstable at
+# that rate (an overfit run swung between 0.006 and 0.056), so the CNN's
+# optimum is not a useful starting point here.
+configs/train/vit_small_pre_p100_geo_lr5e-5_s0.yaml
+configs/train/vit_small_pre_p100_geo_s0.yaml
+configs/train/vit_small_pre_p100_geo_lr2e-4_s0.yaml
+# Results so far (best val reprojection error, mean, in px, seed 0):
+#
+#     5e-5   3.86   <- best, but at the bottom edge of the range
+#     1e-4   3.92
+#     2e-4   4.18
+#
+# Monotone downward toward the edge, so the optimum is not bracketed yet.
+# This extension arm checks below 5e-5.
+configs/train/vit_small_pre_p100_geo_lr2e-5_s0.yaml
