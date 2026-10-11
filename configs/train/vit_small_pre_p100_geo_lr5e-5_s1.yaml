@@ -1,0 +1,19 @@
+# ViT-S/16 seed replicate 1 of the selected setting (lr 5.0e-5).
+#
+# Identical to vit_small_pre_p100_geo_lr5e-5_s0.yaml except for run_name and
+# seed. Three seeds give the run-to-run variance, without which the gap
+# against ResNet-34 cannot be told apart from noise (SPEC.md 1.4.1).
+run_name: vit_small_pre_p100_geo_lr5e-5_s1
+model: vit_small_patch16_224
+pretrained: true
+data: { root: data_root, subset: p100, mode: offline }
+loss: geometric
+optim: { lr: 5.0e-5, weight_decay: 0.05, warmup_steps: 500 }
+schedule: cosine
+total_steps: 6000
+batch_size: 128
+precision: bf16
+eval_every: 500
+seed: 1
+grad_clip: 1.0
+num_workers: 6

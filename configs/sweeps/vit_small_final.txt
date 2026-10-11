@@ -1,0 +1,27 @@
+# ViT-S/16 selected setting: the two extra seed replicates.
+# One config path per line; blank lines and # comments are ignored.
+#
+# lr 5.0e-5 is the winner of configs/sweeps/vit_small_lr.txt, and unlike the
+# first pass the optimum is now bracketed on both sides
+# (best val reprojection error, mean, in px, seed 0):
+#
+#     2e-5   4.09
+#     5e-5   3.86   <- selected
+#     1e-4   3.92
+#     2e-4   4.18
+#
+# For comparison, ResNet-34 at its own selected rate (3e-3) over three seeds:
+#
+#     s0  4.216
+#     s1  4.265
+#     s2  4.216
+#     ---------------
+#     mean 4.23 +/- 0.03
+#
+# So ViT's single-seed 3.86 px is about 0.37 px ahead, roughly 13x the ResNet
+# seed spread. These two runs supply ViT's own spread, which is what the claim
+# actually needs (SPEC.md 1.4.1).
+#
+# The s0 run at 5e-5 is already FINISHED, so sweep.py will skip it.
+configs/train/vit_small_pre_p100_geo_lr5e-5_s1.yaml
+configs/train/vit_small_pre_p100_geo_lr5e-5_s2.yaml
