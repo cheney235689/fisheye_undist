@@ -23,6 +23,7 @@ arrives as an exception with a real traceback.
 from __future__ import annotations
 
 import argparse
+import gc
 import sys
 import time
 import traceback
@@ -132,51 +133,58 @@ def run_sweep(
     log(f"sweep {Path(list_path)}: {len(configs)} configs")
     for position, config_path in enumerate(configs, start=1):
         head = f"[{position}/{len(configs)}] {config_path}"
-
-        # A broken yaml is an arm failure like any other, not a sweep failure.
         try:
-            cfg: TrainConfig = load_config(config_path)
-        except Exception as exc:  # noqa: BLE001 - report and continue
-            log(f"{head}: FAILED to load ({exc})")
             summary.results.append(
-                SweepResult(str(config_path), "?", "failed", error=str(exc))
+                _run_arm(config_path, head, tracking_uri, out_dir, log,
+                         train_fn, experiment_name)
             )
-            continue
-
-        if finished_run_exists(cfg.run_name, tracking_uri, experiment_name):
-            log(f"{head}: {cfg.run_name} already FINISHED, skipping")
-            summary.results.append(
-                SweepResult(str(config_path), cfg.run_name, "skipped")
-            )
-            continue
-
-        log(f"{head}: training {cfg.run_name}")
-        started = time.time()
-        try:
-            result = train_fn(
-                cfg, tracking_uri=tracking_uri, out_dir=out_dir, log=log
-            )
-        except Exception as exc:  # noqa: BLE001 - one bad arm must not end the sweep
-            log(f"{head}: FAILED after {time.time() - started:.1f}s ({exc})")
-            log(traceback.format_exc())
-            summary.results.append(
-                SweepResult(
-                    str(config_path), cfg.run_name, "failed",
-                    error=str(exc), elapsed_sec=time.time() - started,
-                )
-            )
-            continue
-
-        summary.results.append(
-            SweepResult(
-                str(config_path), cfg.run_name, "done",
-                best_val_reproj_mean_px=result.get("best_val_reproj_mean_px"),
-                elapsed_sec=time.time() - started,
-            )
-        )
+        finally:
+            # Reclaim whatever the arm left in reference cycles before the
+            # next one allocates, whichever way the arm ended.
+            gc.collect()
 
     _print_summary(summary, log)
     return summary
+
+
+def _run_arm(
+    config_path: Path,
+    head: str,
+    tracking_uri: str,
+    out_dir: str | Path | None,
+    log: Callable[[str], None],
+    train_fn: Callable[..., dict[str, Any]],
+    experiment_name: str,
+) -> SweepResult:
+    """Load, skip or train one config; never raises."""
+    # A broken yaml is an arm failure like any other, not a sweep failure.
+    try:
+        cfg: TrainConfig = load_config(config_path)
+    except Exception as exc:  # noqa: BLE001 - report and continue
+        log(f"{head}: FAILED to load ({exc})")
+        return SweepResult(str(config_path), "?", "failed", error=str(exc))
+
+    if finished_run_exists(cfg.run_name, tracking_uri, experiment_name):
+        log(f"{head}: {cfg.run_name} already FINISHED, skipping")
+        return SweepResult(str(config_path), cfg.run_name, "skipped")
+
+    log(f"{head}: training {cfg.run_name}")
+    started = time.time()
+    try:
+        result = train_fn(cfg, tracking_uri=tracking_uri, out_dir=out_dir, log=log)
+    except Exception as exc:  # noqa: BLE001 - one bad arm must not end the sweep
+        log(f"{head}: FAILED after {time.time() - started:.1f}s ({exc})")
+        log(traceback.format_exc())
+        return SweepResult(
+            str(config_path), cfg.run_name, "failed",
+            error=str(exc), elapsed_sec=time.time() - started,
+        )
+
+    return SweepResult(
+        str(config_path), cfg.run_name, "done",
+        best_val_reproj_mean_px=result.get("best_val_reproj_mean_px"),
+        elapsed_sec=time.time() - started,
+    )
 
 
 def _print_summary(summary: SweepSummary, log: Callable[[str], None]) -> None:

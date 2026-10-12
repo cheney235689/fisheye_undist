@@ -1,0 +1,2538 @@
+{
+  "evaluated_at": "2026-10-12T00:00:49+0800",
+  "elapsed_sec": 286.3,
+  "final": false,
+  "git_commit": "4d0a0bbf690b433e0728268c69ef9b077a7e6e15",
+  "device": "cuda",
+  "splits": {
+    "val": 1880,
+    "train_clean": 2000
+  },
+  "analysis_split": "val",
+  "groups": {
+    "resnet34": [
+      "resnet34_pre_p100_geo_lr3e-3_s0",
+      "resnet34_pre_p100_geo_lr3e-3_s1",
+      "resnet34_pre_p100_geo_lr3e-3_s2"
+    ],
+    "vit_small": [
+      "vit_small_pre_p100_geo_lr5e-5_s0",
+      "vit_small_pre_p100_geo_lr5e-5_s1",
+      "vit_small_pre_p100_geo_lr5e-5_s2"
+    ],
+    "resnet34_l1": [
+      "resnet34_pre_p100_l1_lr3e-3_s0"
+    ],
+    "baseline_mean_params": [
+      "baseline_mean_params"
+    ],
+    "baseline_best_constant": [
+      "baseline_best_constant"
+    ]
+  },
+  "baselines": {
+    "baseline_mean_params": {
+      "f": 161.15876192926135,
+      "xi": 0.9202269852649476
+    },
+    "baseline_best_constant": {
+      "f": 375.0646057128906,
+      "xi": 2.939393997192383,
+      "at_edge": []
+    }
+  },
+  "sanity": {
+    "resnet34_pre_p100_geo_lr3e-3_s0": {
+      "recomputed_val_px": 4.2156408193541015,
+      "mlflow_best_val_px": 4.215641021728516,
+      "checkpoint_val_px": 4.215641021728516,
+      "abs_diff_px": 2.0237441411552481e-07,
+      "checkpoint_step": 5999
+    },
+    "resnet34_pre_p100_geo_lr3e-3_s1": {
+      "recomputed_val_px": 4.2645933593445005,
+      "mlflow_best_val_px": 4.264593601226807,
+      "checkpoint_val_px": 4.264593601226807,
+      "abs_diff_px": 2.4188230618449325e-07,
+      "checkpoint_step": 5999
+    },
+    "resnet34_pre_p100_geo_lr3e-3_s2": {
+      "recomputed_val_px": 4.215489742849418,
+      "mlflow_best_val_px": 4.215489864349365,
+      "checkpoint_val_px": 4.215489864349365,
+      "abs_diff_px": 1.2149994699228728e-07,
+      "checkpoint_step": 5999
+    },
+    "vit_small_pre_p100_geo_lr5e-5_s0": {
+      "recomputed_val_px": 3.8552021991382253,
+      "mlflow_best_val_px": 3.8552021980285645,
+      "checkpoint_val_px": 3.8552021980285645,
+      "abs_diff_px": 1.1096608076854864e-09,
+      "checkpoint_step": 5999
+    },
+    "vit_small_pre_p100_geo_lr5e-5_s1": {
+      "recomputed_val_px": 3.8504576016316547,
+      "mlflow_best_val_px": 3.8504574298858643,
+      "checkpoint_val_px": 3.8504574298858643,
+      "abs_diff_px": 1.7174579047818384e-07,
+      "checkpoint_step": 5499
+    },
+    "vit_small_pre_p100_geo_lr5e-5_s2": {
+      "recomputed_val_px": 3.8515180192055536,
+      "mlflow_best_val_px": 3.851518154144287,
+      "checkpoint_val_px": 3.851518154144287,
+      "abs_diff_px": 1.3493873352032892e-07,
+      "checkpoint_step": 4999
+    },
+    "resnet34_pre_p100_l1_lr3e-3_s0": {
+      "recomputed_val_px": 4.8678735627406375,
+      "mlflow_best_val_px": 4.867873191833496,
+      "checkpoint_val_px": 4.867873191833496,
+      "abs_diff_px": 3.709071414448317e-07,
+      "checkpoint_step": 5999
+    }
+  },
+  "runs": {
+    "resnet34_pre_p100_geo_lr3e-3_s0": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 4.2156408193541015,
+        "reproj_median": 3.389594316482544,
+        "reproj_p90": 8.462234497070312,
+        "rel_mean": 3.1121583313172705,
+        "rel_median": 2.5386260085250756,
+        "rel_p90": 6.309510334156462,
+        "f_mae": 34.583687813105584,
+        "xi_mae": 0.26062059810270183,
+        "invalid_frac": 0.0
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 2.8386147213559596,
+        "reproj_median": 2.292030692100525,
+        "reproj_p90": 5.482435512542726,
+        "rel_mean": 2.1280918300746388,
+        "rel_median": 1.7477152586335012,
+        "rel_p90": 4.158774630432545,
+        "f_mae": 31.44618113031443,
+        "xi_mae": 0.24153189231031547,
+        "invalid_frac": 0.0
+      }
+    },
+    "resnet34_pre_p100_geo_lr3e-3_s1": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 4.2645933593445005,
+        "reproj_median": 3.453918218612671,
+        "reproj_p90": 8.611222934722901,
+        "rel_mean": 3.140298117489904,
+        "rel_median": 2.516832521983555,
+        "rel_p90": 6.29499212044701,
+        "f_mae": 35.50008596155986,
+        "xi_mae": 0.2720335496340417,
+        "invalid_frac": 0.0
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 2.8981842530258,
+        "reproj_median": 2.36366605758667,
+        "reproj_p90": 5.716402387619021,
+        "rel_mean": 2.1676763892302704,
+        "rel_median": 1.8196090517744665,
+        "rel_p90": 4.1378700220212,
+        "f_mae": 32.28987688632157,
+        "xi_mae": 0.25230634384537903,
+        "invalid_frac": 0.0
+      }
+    },
+    "resnet34_pre_p100_geo_lr3e-3_s2": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 4.215489742849418,
+        "reproj_median": 3.2759997844696045,
+        "reproj_p90": 8.517309284210206,
+        "rel_mean": 3.111456932678292,
+        "rel_median": 2.430722807007534,
+        "rel_p90": 6.220564592008803,
+        "f_mae": 33.769030945059114,
+        "xi_mae": 0.2558261822567124,
+        "invalid_frac": 0.0
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 2.9284645278081296,
+        "reproj_median": 2.400024652481079,
+        "reproj_p90": 5.829629611968998,
+        "rel_mean": 2.1982750828354236,
+        "rel_median": 1.800017447355132,
+        "rel_p90": 4.253639834267752,
+        "f_mae": 30.94293507011433,
+        "xi_mae": 0.24237800817317884,
+        "invalid_frac": 0.0
+      }
+    },
+    "vit_small_pre_p100_geo_lr5e-5_s0": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 3.8552021991382253,
+        "reproj_median": 2.9630404710769653,
+        "reproj_p90": 7.828272104263309,
+        "rel_mean": 2.874222270476364,
+        "rel_median": 2.226551023446291,
+        "rel_p90": 5.792936810425351,
+        "f_mae": 26.68080810040553,
+        "xi_mae": 0.19152709951949073,
+        "invalid_frac": 0.0
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 2.3191439364366233,
+        "reproj_median": 1.9311667680740356,
+        "reproj_p90": 4.418479490280152,
+        "rel_mean": 1.7584083261307042,
+        "rel_median": 1.4397203895394894,
+        "rel_p90": 3.4794542432993345,
+        "f_mae": 23.257177594639113,
+        "xi_mae": 0.18148218994198828,
+        "invalid_frac": 0.0
+      }
+    },
+    "vit_small_pre_p100_geo_lr5e-5_s1": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 3.8504576016316547,
+        "reproj_median": 3.092213273048401,
+        "reproj_p90": 7.852264738082888,
+        "rel_mean": 2.877624717583646,
+        "rel_median": 2.2863835096359253,
+        "rel_p90": 5.765809246471951,
+        "f_mae": 27.598073292586125,
+        "xi_mae": 0.19724676924097492,
+        "invalid_frac": 0.0
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 2.3451743691395968,
+        "reproj_median": 1.9109753370285034,
+        "reproj_p90": 4.491238737106324,
+        "rel_mean": 1.7868492913926517,
+        "rel_median": 1.4504895114318588,
+        "rel_p90": 3.4712973132507097,
+        "f_mae": 23.84260330921094,
+        "xi_mae": 0.1848166328235984,
+        "invalid_frac": 0.0
+      }
+    },
+    "vit_small_pre_p100_geo_lr5e-5_s2": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 3.8515180192055536,
+        "reproj_median": 3.143987536430359,
+        "reproj_p90": 7.585942506790162,
+        "rel_mean": 2.8805316928844915,
+        "rel_median": 2.3092351575487537,
+        "rel_p90": 5.673159637688198,
+        "f_mae": 27.249190671827385,
+        "xi_mae": 0.19794812190895852,
+        "invalid_frac": 0.0
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 2.4387411123253404,
+        "reproj_median": 2.0331673622131348,
+        "reproj_p90": 4.720216464996339,
+        "rel_mean": 1.8515391126168221,
+        "rel_median": 1.5148591802425577,
+        "rel_p90": 3.6285423670309087,
+        "f_mae": 23.875808697447415,
+        "xi_mae": 0.1868144610115446,
+        "invalid_frac": 0.0
+      }
+    },
+    "resnet34_pre_p100_l1_lr3e-3_s0": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 4.8678735627406375,
+        "reproj_median": 3.908297061920166,
+        "reproj_p90": 10.398447227478028,
+        "rel_mean": 3.588679866017858,
+        "rel_median": 2.8762601541626873,
+        "rel_p90": 7.540627058492603,
+        "f_mae": 21.118247810837197,
+        "xi_mae": 0.11881920204267259,
+        "invalid_frac": 0.0
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 4.0221352734342215,
+        "reproj_median": 3.062946319580078,
+        "reproj_p90": 8.488592433929444,
+        "rel_mean": 2.9851404159277943,
+        "rel_median": 2.323899025363985,
+        "rel_p90": 6.313082746097019,
+        "f_mae": 15.073870038668726,
+        "xi_mae": 0.09299575048612599,
+        "invalid_frac": 0.0
+      }
+    },
+    "baseline_mean_params": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 17.111403021501733,
+        "reproj_median": 14.536547660827637,
+        "reproj_p90": 34.281830596923825,
+        "rel_mean": 12.807799488111193,
+        "rel_median": 10.913796601367645,
+        "rel_p90": 24.20739940234593,
+        "f_mae": 54.329955829006266,
+        "xi_mae": 0.30515543983547,
+        "invalid_frac": 0.0
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 17.507087335422636,
+        "reproj_median": 15.015317916870117,
+        "reproj_p90": 34.69065132141113,
+        "rel_mean": 13.202066995064495,
+        "rel_median": 11.279198707591867,
+        "rel_p90": 26.26323972429548,
+        "f_mae": 54.10970051781805,
+        "xi_mae": 0.31470260499518576,
+        "invalid_frac": 0.0
+      }
+    },
+    "baseline_best_constant": {
+      "val": {
+        "n": 1880,
+        "reproj_mean": 14.555908489797977,
+        "reproj_median": 11.93626880645752,
+        "reproj_p90": 28.43648300170899,
+        "rel_mean": 10.770564614379717,
+        "rel_median": 8.955512293955895,
+        "rel_p90": 20.615279823603032,
+        "f_mae": 200.54775510592862,
+        "xi_mae": 2.0091304354221284,
+        "invalid_frac": 2.493351063829787e-05
+      },
+      "train_clean": {
+        "n": 2000,
+        "reproj_mean": 14.782306636333466,
+        "reproj_median": 12.430353164672852,
+        "reproj_p90": 27.907493400573735,
+        "rel_mean": 11.010179299687184,
+        "rel_median": 9.256619960890912,
+        "rel_p90": 21.182214672318295,
+        "f_mae": 203.05379951148316,
+        "xi_mae": 2.0196833755595693,
+        "invalid_frac": 1.5625e-05
+      }
+    }
+  },
+  "group_stats": {
+    "resnet34": {
+      "val": {
+        "n_runs": 3,
+        "reproj_mean": 4.2319079738493395,
+        "reproj_mean_std": 0.028306474961623137,
+        "reproj_median": 3.373170773188273,
+        "reproj_median_std": 0.0900890774885294,
+        "reproj_p90": 8.53025557200114,
+        "reproj_p90_std": 0.07533321587596074,
+        "rel_mean": 3.1213044604951556,
+        "rel_mean_std": 0.016452727571388007,
+        "rel_median": 2.495393779172055,
+        "rel_median_std": 0.05705690137430385,
+        "rel_p90": 6.275022348870759,
+        "rel_p90_std": 0.047717188665670596,
+        "f_mae": 34.61760157324152,
+        "f_mae_std": 0.8660256779582339,
+        "xi_mae": 0.2628267766644853,
+        "xi_mae_std": 0.008325869757015438,
+        "invalid_frac": 0.0,
+        "invalid_frac_std": 0.0
+      },
+      "train_clean": {
+        "n_runs": 3,
+        "reproj_mean": 2.8884211673966296,
+        "reproj_mean_std": 0.045713622812297273,
+        "reproj_median": 2.3519071340560913,
+        "reproj_median_std": 0.054948867882948,
+        "reproj_p90": 5.676155837376915,
+        "reproj_p90_std": 0.1770614985644754,
+        "rel_mean": 2.164681100713444,
+        "rel_mean_std": 0.03518737070307082,
+        "rel_median": 1.7891139192543666,
+        "rel_median_std": 0.03716644409722451,
+        "rel_p90": 4.183428162240499,
+        "rel_p90_std": 0.06169691912773965,
+        "f_mae": 31.559664362250107,
+        "f_mae_std": 0.6806040677294263,
+        "xi_mae": 0.2454054147762911,
+        "xi_mae_std": 0.005991334953562876,
+        "invalid_frac": 0.0,
+        "invalid_frac_std": 0.0
+      }
+    },
+    "vit_small": {
+      "val": {
+        "n_runs": 3,
+        "reproj_mean": 3.8523926066584777,
+        "reproj_mean_std": 0.002490276848956404,
+        "reproj_median": 3.0664137601852417,
+        "reproj_median_std": 0.09319158364886583,
+        "reproj_p90": 7.755493116378786,
+        "reproj_p90_std": 0.14732436501918378,
+        "rel_mean": 2.877459560314834,
+        "rel_mean_std": 0.003157951942893747,
+        "rel_median": 2.2740565635436565,
+        "rel_median_std": 0.04269814642393496,
+        "rel_p90": 5.7439685648618335,
+        "rel_p90_std": 0.06280449273039569,
+        "f_mae": 27.17602402160635,
+        "f_mae_std": 0.46298906814842955,
+        "xi_mae": 0.19557399688980806,
+        "xi_mae_std": 0.003522216295975149,
+        "invalid_frac": 0.0,
+        "invalid_frac_std": 0.0
+      },
+      "train_clean": {
+        "n_runs": 3,
+        "reproj_mean": 2.3676864726338533,
+        "reproj_mean_std": 0.06289648021106807,
+        "reproj_median": 1.9584364891052246,
+        "reproj_median_std": 0.06550153447454149,
+        "reproj_p90": 4.543311564127605,
+        "reproj_p90_std": 0.15746423391745318,
+        "rel_mean": 1.7989322433800592,
+        "rel_mean_std": 0.047726660729913016,
+        "rel_median": 1.4683563604046352,
+        "rel_median_std": 0.04063099415768558,
+        "rel_p90": 3.5264313078603173,
+        "rel_p90_std": 0.08852477156513597,
+        "f_mae": 23.65852986709916,
+        "f_mae_std": 0.3479775630821819,
+        "xi_mae": 0.1843710945923771,
+        "xi_mae_std": 0.0026939110836136943,
+        "invalid_frac": 0.0,
+        "invalid_frac_std": 0.0
+      }
+    },
+    "resnet34_l1": {
+      "val": {
+        "n_runs": 1,
+        "reproj_mean": 4.8678735627406375,
+        "reproj_mean_std": null,
+        "reproj_median": 3.908297061920166,
+        "reproj_median_std": null,
+        "reproj_p90": 10.398447227478028,
+        "reproj_p90_std": null,
+        "rel_mean": 3.588679866017858,
+        "rel_mean_std": null,
+        "rel_median": 2.8762601541626873,
+        "rel_median_std": null,
+        "rel_p90": 7.540627058492603,
+        "rel_p90_std": null,
+        "f_mae": 21.118247810837197,
+        "f_mae_std": null,
+        "xi_mae": 0.11881920204267259,
+        "xi_mae_std": null,
+        "invalid_frac": 0.0,
+        "invalid_frac_std": null
+      },
+      "train_clean": {
+        "n_runs": 1,
+        "reproj_mean": 4.0221352734342215,
+        "reproj_mean_std": null,
+        "reproj_median": 3.062946319580078,
+        "reproj_median_std": null,
+        "reproj_p90": 8.488592433929444,
+        "reproj_p90_std": null,
+        "rel_mean": 2.9851404159277943,
+        "rel_mean_std": null,
+        "rel_median": 2.323899025363985,
+        "rel_median_std": null,
+        "rel_p90": 6.313082746097019,
+        "rel_p90_std": null,
+        "f_mae": 15.073870038668726,
+        "f_mae_std": null,
+        "xi_mae": 0.09299575048612599,
+        "xi_mae_std": null,
+        "invalid_frac": 0.0,
+        "invalid_frac_std": null
+      }
+    },
+    "baseline_mean_params": {
+      "val": {
+        "n_runs": 1,
+        "reproj_mean": 17.111403021501733,
+        "reproj_mean_std": null,
+        "reproj_median": 14.536547660827637,
+        "reproj_median_std": null,
+        "reproj_p90": 34.281830596923825,
+        "reproj_p90_std": null,
+        "rel_mean": 12.807799488111193,
+        "rel_mean_std": null,
+        "rel_median": 10.913796601367645,
+        "rel_median_std": null,
+        "rel_p90": 24.20739940234593,
+        "rel_p90_std": null,
+        "f_mae": 54.329955829006266,
+        "f_mae_std": null,
+        "xi_mae": 0.30515543983547,
+        "xi_mae_std": null,
+        "invalid_frac": 0.0,
+        "invalid_frac_std": null
+      },
+      "train_clean": {
+        "n_runs": 1,
+        "reproj_mean": 17.507087335422636,
+        "reproj_mean_std": null,
+        "reproj_median": 15.015317916870117,
+        "reproj_median_std": null,
+        "reproj_p90": 34.69065132141113,
+        "reproj_p90_std": null,
+        "rel_mean": 13.202066995064495,
+        "rel_mean_std": null,
+        "rel_median": 11.279198707591867,
+        "rel_median_std": null,
+        "rel_p90": 26.26323972429548,
+        "rel_p90_std": null,
+        "f_mae": 54.10970051781805,
+        "f_mae_std": null,
+        "xi_mae": 0.31470260499518576,
+        "xi_mae_std": null,
+        "invalid_frac": 0.0,
+        "invalid_frac_std": null
+      }
+    },
+    "baseline_best_constant": {
+      "val": {
+        "n_runs": 1,
+        "reproj_mean": 14.555908489797977,
+        "reproj_mean_std": null,
+        "reproj_median": 11.93626880645752,
+        "reproj_median_std": null,
+        "reproj_p90": 28.43648300170899,
+        "reproj_p90_std": null,
+        "rel_mean": 10.770564614379717,
+        "rel_mean_std": null,
+        "rel_median": 8.955512293955895,
+        "rel_median_std": null,
+        "rel_p90": 20.615279823603032,
+        "rel_p90_std": null,
+        "f_mae": 200.54775510592862,
+        "f_mae_std": null,
+        "xi_mae": 2.0091304354221284,
+        "xi_mae_std": null,
+        "invalid_frac": 2.493351063829787e-05,
+        "invalid_frac_std": null
+      },
+      "train_clean": {
+        "n_runs": 1,
+        "reproj_mean": 14.782306636333466,
+        "reproj_mean_std": null,
+        "reproj_median": 12.430353164672852,
+        "reproj_median_std": null,
+        "reproj_p90": 27.907493400573735,
+        "reproj_p90_std": null,
+        "rel_mean": 11.010179299687184,
+        "rel_mean_std": null,
+        "rel_median": 9.256619960890912,
+        "rel_median_std": null,
+        "rel_p90": 21.182214672318295,
+        "rel_p90_std": null,
+        "f_mae": 203.05379951148316,
+        "f_mae_std": null,
+        "xi_mae": 2.0196833755595693,
+        "xi_mae_std": null,
+        "invalid_frac": 1.5625e-05,
+        "invalid_frac_std": null
+      }
+    }
+  },
+  "comparison": {
+    "split": "val",
+    "first": "vit_small",
+    "second": "resnet34",
+    "mean": -0.3795153671908622,
+    "ci_low": -0.544937650480354,
+    "ci_high": -0.2217506754238503,
+    "n_images": 1880,
+    "n_panoramas": 94,
+    "n_boot": 1000,
+    "seed": 0,
+    "pct": {
+      "mean": -0.2438449001803218,
+      "ci_low": -0.3626506897238311,
+      "ci_high": -0.12606899618192402
+    }
+  },
+  "generalisation_gap": {
+    "resnet34": {
+      "val": 4.2319079738493395,
+      "train_clean": 2.8884211673966296
+    },
+    "vit_small": {
+      "val": 3.8523926066584777,
+      "train_clean": 2.3676864726338533
+    },
+    "resnet34_l1": {
+      "val": 4.8678735627406375,
+      "train_clean": 4.0221352734342215
+    },
+    "baseline_mean_params": {
+      "val": 17.111403021501733,
+      "train_clean": 17.507087335422636
+    },
+    "baseline_best_constant": {
+      "val": 14.555908489797977,
+      "train_clean": 14.782306636333466
+    }
+  },
+  "generalisation_gap_pct": {
+    "resnet34": {
+      "val": 3.1213044604951556,
+      "train_clean": 2.164681100713444
+    },
+    "vit_small": {
+      "val": 2.877459560314834,
+      "train_clean": 1.7989322433800592
+    },
+    "resnet34_l1": {
+      "val": 3.588679866017858,
+      "train_clean": 2.9851404159277943
+    },
+    "baseline_mean_params": {
+      "val": 12.807799488111193,
+      "train_clean": 13.202066995064495
+    },
+    "baseline_best_constant": {
+      "val": 10.770564614379717,
+      "train_clean": 11.010179299687184
+    }
+  },
+  "stratification": {
+    "split": "val",
+    "texture_edges": [
+      22.2319,
+      28.6259,
+      36.6834,
+      48.7588
+    ],
+    "line_score_edges": [
+      6.938164800000001,
+      11.396466400000001,
+      17.615773200000003,
+      26.747344200000004
+    ],
+    "n_low_texture": 14,
+    "n_low_texture_panoramas": 5,
+    "n_panoramas": 94,
+    "by": {
+      "resnet34": {
+        "texture": [
+          {
+            "bin": "< 5",
+            "n": 14,
+            "n_panoramas": 5,
+            "mean": 5.678383835724422,
+            "mean_pct": 4.162788117736127
+          },
+          {
+            "bin": "Q1 [5.0-22.2]",
+            "n": 374,
+            "n_panoramas": 48,
+            "mean": 4.539452965698352,
+            "mean_pct": 3.2143424391041138
+          },
+          {
+            "bin": "Q2 (22.2-28.6]",
+            "n": 373,
+            "n_panoramas": 68,
+            "mean": 4.154606513019861,
+            "mean_pct": 3.1165731327368094
+          },
+          {
+            "bin": "Q3 (28.6-36.7]",
+            "n": 373,
+            "n_panoramas": 64,
+            "mean": 4.02539190411621,
+            "mean_pct": 2.9401447729393877
+          },
+          {
+            "bin": "Q4 (36.7-48.8]",
+            "n": 373,
+            "n_panoramas": 54,
+            "mean": 4.215268563009778,
+            "mean_pct": 3.1542435196897074
+          },
+          {
+            "bin": "Q5 (48.8-109.6]",
+            "n": 373,
+            "n_panoramas": 38,
+            "mean": 4.169704086785608,
+            "mean_pct": 3.1418784670138495
+          }
+        ],
+        "line_score": [
+          {
+            "bin": "Q1 [0.0-6.9]",
+            "n": 376,
+            "n_panoramas": 56,
+            "mean": 4.711513009926318,
+            "mean_pct": 3.443147538956755
+          },
+          {
+            "bin": "Q2 (6.9-11.4]",
+            "n": 376,
+            "n_panoramas": 70,
+            "mean": 4.59929853383161,
+            "mean_pct": 3.3966083604194903
+          },
+          {
+            "bin": "Q3 (11.4-17.6]",
+            "n": 376,
+            "n_panoramas": 78,
+            "mean": 4.144102922165172,
+            "mean_pct": 3.07040711243493
+          },
+          {
+            "bin": "Q4 (17.6-26.7]",
+            "n": 376,
+            "n_panoramas": 75,
+            "mean": 3.991926742156188,
+            "mean_pct": 2.9035670616788645
+          },
+          {
+            "bin": "Q5 (26.7-83.9]",
+            "n": 376,
+            "n_panoramas": 46,
+            "mean": 3.7126986611674124,
+            "mean_pct": 2.7927922289857383
+          }
+        ],
+        "fov": [
+          {
+            "bin": "100-130",
+            "n": 639,
+            "n_panoramas": 94,
+            "mean": 4.522584965795543,
+            "mean_pct": 3.2922637448456755
+          },
+          {
+            "bin": "130-160",
+            "n": 565,
+            "n_panoramas": 94,
+            "mean": 4.363127853763138,
+            "mean_pct": 3.261815174814924
+          },
+          {
+            "bin": "160-190",
+            "n": 385,
+            "n_panoramas": 92,
+            "mean": 4.0501862550517185,
+            "mean_pct": 3.0345223159333905
+          },
+          {
+            "bin": "190-220",
+            "n": 291,
+            "n_panoramas": 90,
+            "mean": 3.5792654712107304,
+            "mean_pct": 2.5879009875248067
+          }
+        ],
+        "shape": [
+          {
+            "bin": "full-frame",
+            "n": 951,
+            "n_panoramas": 94,
+            "mean": 4.9679080560369915,
+            "mean_pct": 3.1364656024419957
+          },
+          {
+            "bin": "circular",
+            "n": 929,
+            "n_panoramas": 94,
+            "mean": 3.4784783956357175,
+            "mean_pct": 3.1057842818176047
+          }
+        ],
+        "category": [
+          {
+            "bin": "Abandoned & Ruins",
+            "n": 100,
+            "n_panoramas": 5,
+            "mean": 3.6166447902719177,
+            "mean_pct": 2.619259808051365
+          },
+          {
+            "bin": "Coast & Water",
+            "n": 140,
+            "n_panoramas": 7,
+            "mean": 4.388334521012647,
+            "mean_pct": 3.187900091954622
+          },
+          {
+            "bin": "Desert & Arid",
+            "n": 20,
+            "n_panoramas": 1,
+            "mean": 4.439296228686969,
+            "mean_pct": 3.302067808796333
+          },
+          {
+            "bin": "Fields & Countryside",
+            "n": 240,
+            "n_panoramas": 12,
+            "mean": 4.451583472556538,
+            "mean_pct": 3.2539360664830146
+          },
+          {
+            "bin": "Forest & Woodland",
+            "n": 120,
+            "n_panoramas": 6,
+            "mean": 4.571305757698913,
+            "mean_pct": 3.4303090392652544
+          },
+          {
+            "bin": "Industrial",
+            "n": 40,
+            "n_panoramas": 2,
+            "mean": 3.833926132321358,
+            "mean_pct": 2.873612397827152
+          },
+          {
+            "bin": "Interiors",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 3.508811672085098,
+            "mean_pct": 2.5592578149001133
+          },
+          {
+            "bin": "Mountains & Hills",
+            "n": 160,
+            "n_panoramas": 8,
+            "mean": 4.0906422702595595,
+            "mean_pct": 3.0290931037867352
+          },
+          {
+            "bin": "Parks & Gardens",
+            "n": 200,
+            "n_panoramas": 10,
+            "mean": 5.113831563716134,
+            "mean_pct": 3.8628033286718635
+          },
+          {
+            "bin": "Streets & Town",
+            "n": 300,
+            "n_panoramas": 15,
+            "mean": 4.17276250873175,
+            "mean_pct": 3.072870576060052
+          },
+          {
+            "bin": "Studio",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 4.318967456698772,
+            "mean_pct": 3.1806566998751586
+          }
+        ],
+        "excluding_low_texture": {
+          "n": 1866,
+          "mean": 4.221055529012121,
+          "mean_pct": 3.1134905423808075,
+          "mean_all": 4.23190797384934,
+          "mean_all_pct": 3.1213044604951556
+        }
+      },
+      "vit_small": {
+        "texture": [
+          {
+            "bin": "< 5",
+            "n": 14,
+            "n_panoramas": 5,
+            "mean": 5.2844959050416955,
+            "mean_pct": 4.1144271105790216
+          },
+          {
+            "bin": "Q1 [5.0-22.2]",
+            "n": 374,
+            "n_panoramas": 48,
+            "mean": 3.9051132230370333,
+            "mean_pct": 2.781743985389029
+          },
+          {
+            "bin": "Q2 (22.2-28.6]",
+            "n": 373,
+            "n_panoramas": 68,
+            "mean": 3.461408212494648,
+            "mean_pct": 2.623217507140937
+          },
+          {
+            "bin": "Q3 (28.6-36.7]",
+            "n": 373,
+            "n_panoramas": 64,
+            "mean": 3.6689847528974426,
+            "mean_pct": 2.727845884110021
+          },
+          {
+            "bin": "Q4 (36.7-48.8]",
+            "n": 373,
+            "n_panoramas": 54,
+            "mean": 4.041891824264309,
+            "mean_pct": 3.0776016355163724
+          },
+          {
+            "bin": "Q5 (48.8-109.6]",
+            "n": 373,
+            "n_panoramas": 38,
+            "mean": 4.130671812036642,
+            "mean_pct": 3.13071766306721
+          }
+        ],
+        "line_score": [
+          {
+            "bin": "Q1 [0.0-6.9]",
+            "n": 376,
+            "n_panoramas": 56,
+            "mean": 3.870868084258697,
+            "mean_pct": 2.8637572132796802
+          },
+          {
+            "bin": "Q2 (6.9-11.4]",
+            "n": 376,
+            "n_panoramas": 70,
+            "mean": 4.121301360943533,
+            "mean_pct": 3.0770928355854017
+          },
+          {
+            "bin": "Q3 (11.4-17.6]",
+            "n": 376,
+            "n_panoramas": 78,
+            "mean": 3.974904936368425,
+            "mean_pct": 2.9904181525946716
+          },
+          {
+            "bin": "Q4 (17.6-26.7]",
+            "n": 376,
+            "n_panoramas": 75,
+            "mean": 3.8098481355618072,
+            "mean_pct": 2.8357037630693256
+          },
+          {
+            "bin": "Q5 (26.7-83.9]",
+            "n": 376,
+            "n_panoramas": 46,
+            "mean": 3.4850405161599265,
+            "mean_pct": 2.62032583704509
+          }
+        ],
+        "fov": [
+          {
+            "bin": "100-130",
+            "n": 639,
+            "n_panoramas": 94,
+            "mean": 3.8128931422309296,
+            "mean_pct": 2.8257189995706105
+          },
+          {
+            "bin": "130-160",
+            "n": 565,
+            "n_panoramas": 94,
+            "mean": 4.073233203682224,
+            "mean_pct": 3.0844107322655523
+          },
+          {
+            "bin": "160-190",
+            "n": 385,
+            "n_panoramas": 92,
+            "mean": 3.8222141083184775,
+            "mean_pct": 2.890413648158032
+          },
+          {
+            "bin": "190-220",
+            "n": 291,
+            "n_panoramas": 90,
+            "mean": 3.5502755699288806,
+            "mean_pct": 2.572124448094117
+          }
+        ],
+        "shape": [
+          {
+            "bin": "full-frame",
+            "n": 951,
+            "n_panoramas": 94,
+            "mean": 4.2497059079719515,
+            "mean_pct": 2.6830320228352686
+          },
+          {
+            "bin": "circular",
+            "n": 929,
+            "n_panoramas": 94,
+            "mean": 3.445670378941456,
+            "mean_pct": 3.076491409769157
+          }
+        ],
+        "category": [
+          {
+            "bin": "Abandoned & Ruins",
+            "n": 100,
+            "n_panoramas": 5,
+            "mean": 3.620196083237728,
+            "mean_pct": 2.6765256724171604
+          },
+          {
+            "bin": "Coast & Water",
+            "n": 140,
+            "n_panoramas": 7,
+            "mean": 3.8716728663515476,
+            "mean_pct": 2.8697086243192613
+          },
+          {
+            "bin": "Desert & Arid",
+            "n": 20,
+            "n_panoramas": 1,
+            "mean": 3.4613761673371,
+            "mean_pct": 2.650452596560842
+          },
+          {
+            "bin": "Fields & Countryside",
+            "n": 240,
+            "n_panoramas": 12,
+            "mean": 3.643578931585782,
+            "mean_pct": 2.7128499308907115
+          },
+          {
+            "bin": "Forest & Woodland",
+            "n": 120,
+            "n_panoramas": 6,
+            "mean": 4.202061405239833,
+            "mean_pct": 3.208397032206656
+          },
+          {
+            "bin": "Industrial",
+            "n": 40,
+            "n_panoramas": 2,
+            "mean": 3.1983820314208664,
+            "mean_pct": 2.5014313428049872
+          },
+          {
+            "bin": "Interiors",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 3.4797053200458845,
+            "mean_pct": 2.570328970637347
+          },
+          {
+            "bin": "Mountains & Hills",
+            "n": 160,
+            "n_panoramas": 8,
+            "mean": 3.5342603598100446,
+            "mean_pct": 2.647846375938529
+          },
+          {
+            "bin": "Parks & Gardens",
+            "n": 200,
+            "n_panoramas": 10,
+            "mean": 4.601361914612353,
+            "mean_pct": 3.471929940562719
+          },
+          {
+            "bin": "Streets & Town",
+            "n": 300,
+            "n_panoramas": 15,
+            "mean": 4.087612886478504,
+            "mean_pct": 3.061570628027927
+          },
+          {
+            "bin": "Studio",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 3.8436420644411724,
+            "mean_pct": 2.838748419192662
+          }
+        ],
+        "excluding_low_texture": {
+          "n": 1866,
+          "mean": 3.8416479945591395,
+          "mean_pct": 2.8681789891981677,
+          "mean_all": 3.8523926066584777,
+          "mean_all_pct": 2.877459560314834
+        }
+      },
+      "resnet34_l1": {
+        "texture": [
+          {
+            "bin": "< 5",
+            "n": 14,
+            "n_panoramas": 5,
+            "mean": 9.338616149766105,
+            "mean_pct": 6.385563343305235
+          },
+          {
+            "bin": "Q1 [5.0-22.2]",
+            "n": 374,
+            "n_panoramas": 48,
+            "mean": 5.016837503541918,
+            "mean_pct": 3.5606169843204785
+          },
+          {
+            "bin": "Q2 (22.2-28.6]",
+            "n": 373,
+            "n_panoramas": 68,
+            "mean": 4.8694885397035295,
+            "mean_pct": 3.638194548339904
+          },
+          {
+            "bin": "Q3 (28.6-36.7]",
+            "n": 373,
+            "n_panoramas": 64,
+            "mean": 4.607855107665221,
+            "mean_pct": 3.375669282070242
+          },
+          {
+            "bin": "Q4 (36.7-48.8]",
+            "n": 373,
+            "n_panoramas": 54,
+            "mean": 4.692249963114952,
+            "mean_pct": 3.5044857560283247
+          },
+          {
+            "bin": "Q5 (48.8-109.6]",
+            "n": 373,
+            "n_panoramas": 38,
+            "mean": 4.984734661717357,
+            "mean_pct": 3.759531135200781
+          }
+        ],
+        "line_score": [
+          {
+            "bin": "Q1 [0.0-6.9]",
+            "n": 376,
+            "n_panoramas": 56,
+            "mean": 5.268627407916009,
+            "mean_pct": 3.8213643111921822
+          },
+          {
+            "bin": "Q2 (6.9-11.4]",
+            "n": 376,
+            "n_panoramas": 70,
+            "mean": 5.092155563902665,
+            "mean_pct": 3.756024241154254
+          },
+          {
+            "bin": "Q3 (11.4-17.6]",
+            "n": 376,
+            "n_panoramas": 78,
+            "mean": 5.078246176223013,
+            "mean_pct": 3.741877114599078
+          },
+          {
+            "bin": "Q4 (17.6-26.7]",
+            "n": 376,
+            "n_panoramas": 75,
+            "mean": 4.423573573734215,
+            "mean_pct": 3.2334215343722725
+          },
+          {
+            "bin": "Q5 (26.7-83.9]",
+            "n": 376,
+            "n_panoramas": 46,
+            "mean": 4.4767650919272866,
+            "mean_pct": 3.390712128771504
+          }
+        ],
+        "fov": [
+          {
+            "bin": "100-130",
+            "n": 639,
+            "n_panoramas": 94,
+            "mean": 5.178586887560074,
+            "mean_pct": 3.7549786248779067
+          },
+          {
+            "bin": "130-160",
+            "n": 565,
+            "n_panoramas": 94,
+            "mean": 4.991940874138237,
+            "mean_pct": 3.721998666034855
+          },
+          {
+            "bin": "160-190",
+            "n": 385,
+            "n_panoramas": 92,
+            "mean": 4.60900994556194,
+            "mean_pct": 3.475124917894514
+          },
+          {
+            "bin": "190-220",
+            "n": 291,
+            "n_panoramas": 90,
+            "mean": 4.2871816284263256,
+            "mean_pct": 3.114895076005191
+          }
+        ],
+        "shape": [
+          {
+            "bin": "full-frame",
+            "n": 951,
+            "n_panoramas": 94,
+            "mean": 5.727255192408035,
+            "mean_pct": 3.6158758786942737
+          },
+          {
+            "bin": "circular",
+            "n": 929,
+            "n_panoramas": 94,
+            "mean": 3.9881405920046906,
+            "mean_pct": 3.5608398142899023
+          }
+        ],
+        "category": [
+          {
+            "bin": "Abandoned & Ruins",
+            "n": 100,
+            "n_panoramas": 5,
+            "mean": 4.272724198922515,
+            "mean_pct": 3.085778957191911
+          },
+          {
+            "bin": "Coast & Water",
+            "n": 140,
+            "n_panoramas": 7,
+            "mean": 5.0802215425031525,
+            "mean_pct": 3.660525563309233
+          },
+          {
+            "bin": "Desert & Arid",
+            "n": 20,
+            "n_panoramas": 1,
+            "mean": 5.226412434875965,
+            "mean_pct": 3.784802136276526
+          },
+          {
+            "bin": "Fields & Countryside",
+            "n": 240,
+            "n_panoramas": 12,
+            "mean": 4.983005285107841,
+            "mean_pct": 3.650632620126149
+          },
+          {
+            "bin": "Forest & Woodland",
+            "n": 120,
+            "n_panoramas": 6,
+            "mean": 5.112405507514874,
+            "mean_pct": 3.7775404352551862
+          },
+          {
+            "bin": "Industrial",
+            "n": 40,
+            "n_panoramas": 2,
+            "mean": 4.331490125507116,
+            "mean_pct": 3.323000532264852
+          },
+          {
+            "bin": "Interiors",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 4.0801494154014755,
+            "mean_pct": 3.0436316423359364
+          },
+          {
+            "bin": "Mountains & Hills",
+            "n": 160,
+            "n_panoramas": 8,
+            "mean": 4.68846086821286,
+            "mean_pct": 3.4897041705725256
+          },
+          {
+            "bin": "Parks & Gardens",
+            "n": 200,
+            "n_panoramas": 10,
+            "mean": 5.619549437835812,
+            "mean_pct": 4.194436250316617
+          },
+          {
+            "bin": "Streets & Town",
+            "n": 300,
+            "n_panoramas": 15,
+            "mean": 4.920315127347906,
+            "mean_pct": 3.650340301439473
+          },
+          {
+            "bin": "Studio",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 5.118932421665106,
+            "mean_pct": 3.725125217190127
+          }
+        ],
+        "excluding_low_texture": {
+          "n": 1866,
+          "mean": 4.834331013856202,
+          "mean_pct": 3.5676957456094858,
+          "mean_all": 4.8678735627406375,
+          "mean_all_pct": 3.588679866017858
+        }
+      },
+      "baseline_mean_params": {
+        "texture": [
+          {
+            "bin": "< 5",
+            "n": 14,
+            "n_panoramas": 5,
+            "mean": 15.27670647416796,
+            "mean_pct": 10.402628975641226
+          },
+          {
+            "bin": "Q1 [5.0-22.2]",
+            "n": 374,
+            "n_panoramas": 48,
+            "mean": 17.86939367620065,
+            "mean_pct": 12.730421529583003
+          },
+          {
+            "bin": "Q2 (22.2-28.6]",
+            "n": 373,
+            "n_panoramas": 68,
+            "mean": 16.015094535600085,
+            "mean_pct": 12.01034990925741
+          },
+          {
+            "bin": "Q3 (28.6-36.7]",
+            "n": 373,
+            "n_panoramas": 64,
+            "mean": 16.662205093028398,
+            "mean_pct": 12.538136223320166
+          },
+          {
+            "bin": "Q4 (36.7-48.8]",
+            "n": 373,
+            "n_panoramas": 54,
+            "mean": 17.134213339067976,
+            "mean_pct": 13.05938804003271
+          },
+          {
+            "bin": "Q5 (48.8-109.6]",
+            "n": 373,
+            "n_panoramas": 38,
+            "mean": 17.94293892207798,
+            "mean_pct": 13.791183682419263
+          }
+        ],
+        "line_score": [
+          {
+            "bin": "Q1 [0.0-6.9]",
+            "n": 376,
+            "n_panoramas": 56,
+            "mean": 15.873163123238594,
+            "mean_pct": 11.823419187821319
+          },
+          {
+            "bin": "Q2 (6.9-11.4]",
+            "n": 376,
+            "n_panoramas": 70,
+            "mean": 17.106978130942963,
+            "mean_pct": 12.794089161008339
+          },
+          {
+            "bin": "Q3 (11.4-17.6]",
+            "n": 376,
+            "n_panoramas": 78,
+            "mean": 17.701597104522776,
+            "mean_pct": 13.215149130111307
+          },
+          {
+            "bin": "Q4 (17.6-26.7]",
+            "n": 376,
+            "n_panoramas": 75,
+            "mean": 17.91725090589929,
+            "mean_pct": 13.25609223643736
+          },
+          {
+            "bin": "Q5 (26.7-83.9]",
+            "n": 376,
+            "n_panoramas": 46,
+            "mean": 16.958025842905045,
+            "mean_pct": 12.95024772517764
+          }
+        ],
+        "fov": [
+          {
+            "bin": "100-130",
+            "n": 639,
+            "n_panoramas": 94,
+            "mean": 18.909053791856543,
+            "mean_pct": 12.999496154187812
+          },
+          {
+            "bin": "130-160",
+            "n": 565,
+            "n_panoramas": 94,
+            "mean": 10.534542110957931,
+            "mean_pct": 7.635994693461918
+          },
+          {
+            "bin": "160-190",
+            "n": 385,
+            "n_panoramas": 92,
+            "mean": 14.514696042413835,
+            "mean_pct": 12.187480083637745
+          },
+          {
+            "bin": "190-220",
+            "n": 291,
+            "n_panoramas": 90,
+            "mean": 29.368996695554543,
+            "mean_pct": 23.249031481500044
+          }
+        ],
+        "shape": [
+          {
+            "bin": "full-frame",
+            "n": 951,
+            "n_panoramas": 94,
+            "mean": 18.67346873462639,
+            "mean_pct": 11.789407473686873
+          },
+          {
+            "bin": "circular",
+            "n": 929,
+            "n_panoramas": 94,
+            "mean": 15.512345440036128,
+            "mean_pct": 13.850308428603686
+          }
+        ],
+        "category": [
+          {
+            "bin": "Abandoned & Ruins",
+            "n": 100,
+            "n_panoramas": 5,
+            "mean": 16.736730258464814,
+            "mean_pct": 12.586242251963807
+          },
+          {
+            "bin": "Coast & Water",
+            "n": 140,
+            "n_panoramas": 7,
+            "mean": 17.099964949062894,
+            "mean_pct": 12.653890473164928
+          },
+          {
+            "bin": "Desert & Arid",
+            "n": 20,
+            "n_panoramas": 1,
+            "mean": 18.44295175075531,
+            "mean_pct": 14.027998477446815
+          },
+          {
+            "bin": "Fields & Countryside",
+            "n": 240,
+            "n_panoramas": 12,
+            "mean": 16.35041728814443,
+            "mean_pct": 12.119410321740183
+          },
+          {
+            "bin": "Forest & Woodland",
+            "n": 120,
+            "n_panoramas": 6,
+            "mean": 18.04444146255652,
+            "mean_pct": 13.447162747510996
+          },
+          {
+            "bin": "Industrial",
+            "n": 40,
+            "n_panoramas": 2,
+            "mean": 14.651063257455826,
+            "mean_pct": 11.53118088401022
+          },
+          {
+            "bin": "Interiors",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 17.306960099296912,
+            "mean_pct": 13.052262907687437
+          },
+          {
+            "bin": "Mountains & Hills",
+            "n": 160,
+            "n_panoramas": 8,
+            "mean": 16.44010946713388,
+            "mean_pct": 12.241627692670406
+          },
+          {
+            "bin": "Parks & Gardens",
+            "n": 200,
+            "n_panoramas": 10,
+            "mean": 16.18342721492052,
+            "mean_pct": 12.046963735619952
+          },
+          {
+            "bin": "Streets & Town",
+            "n": 300,
+            "n_panoramas": 15,
+            "mean": 17.987876850565275,
+            "mean_pct": 13.572970007812586
+          },
+          {
+            "bin": "Studio",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 17.671500110839094,
+            "mean_pct": 13.177825499763387
+          }
+        ],
+        "excluding_low_texture": {
+          "n": 1866,
+          "mean": 17.125168161728247,
+          "mean_pct": 12.82584471167742,
+          "mean_all": 17.111403021501733,
+          "mean_all_pct": 12.807799488111193
+        }
+      },
+      "baseline_best_constant": {
+        "texture": [
+          {
+            "bin": "< 5",
+            "n": 14,
+            "n_panoramas": 5,
+            "mean": 14.49702399117606,
+            "mean_pct": 9.85114326299868
+          },
+          {
+            "bin": "Q1 [5.0-22.2]",
+            "n": 374,
+            "n_panoramas": 48,
+            "mean": 15.407187463446734,
+            "mean_pct": 10.855754731000983
+          },
+          {
+            "bin": "Q2 (22.2-28.6]",
+            "n": 373,
+            "n_panoramas": 68,
+            "mean": 13.830396403895627,
+            "mean_pct": 10.264994169745174
+          },
+          {
+            "bin": "Q3 (28.6-36.7]",
+            "n": 373,
+            "n_panoramas": 64,
+            "mean": 14.13295096654355,
+            "mean_pct": 10.500489443063865
+          },
+          {
+            "bin": "Q4 (36.7-48.8]",
+            "n": 373,
+            "n_panoramas": 54,
+            "mean": 14.350410990037483,
+            "mean_pct": 10.82664686319947
+          },
+          {
+            "bin": "Q5 (48.8-109.6]",
+            "n": 373,
+            "n_panoramas": 38,
+            "mean": 15.058524517846811,
+            "mean_pct": 11.4392185855398
+          }
+        ],
+        "line_score": [
+          {
+            "bin": "Q1 [0.0-6.9]",
+            "n": 376,
+            "n_panoramas": 56,
+            "mean": 13.70296578933584,
+            "mean_pct": 10.097643027599595
+          },
+          {
+            "bin": "Q2 (6.9-11.4]",
+            "n": 376,
+            "n_panoramas": 70,
+            "mean": 14.49063217259468,
+            "mean_pct": 10.723794329169541
+          },
+          {
+            "bin": "Q3 (11.4-17.6]",
+            "n": 376,
+            "n_panoramas": 78,
+            "mean": 14.968230448187665,
+            "mean_pct": 11.0775981171046
+          },
+          {
+            "bin": "Q4 (17.6-26.7]",
+            "n": 376,
+            "n_panoramas": 75,
+            "mean": 15.253602231119542,
+            "mean_pct": 11.141676801170961
+          },
+          {
+            "bin": "Q5 (26.7-83.9]",
+            "n": 376,
+            "n_panoramas": 46,
+            "mean": 14.364111807752163,
+            "mean_pct": 10.812110796853885
+          }
+        ],
+        "fov": [
+          {
+            "bin": "100-130",
+            "n": 639,
+            "n_panoramas": 94,
+            "mean": 17.03480187380258,
+            "mean_pct": 11.632073804644067
+          },
+          {
+            "bin": "130-160",
+            "n": 565,
+            "n_panoramas": 94,
+            "mean": 10.900866044939091,
+            "mean_pct": 7.90169094223109
+          },
+          {
+            "bin": "160-190",
+            "n": 385,
+            "n_panoramas": 92,
+            "mean": 13.126078813726252,
+            "mean_pct": 10.666341510295661
+          },
+          {
+            "bin": "190-220",
+            "n": 291,
+            "n_panoramas": 90,
+            "mean": 18.100824415069265,
+            "mean_pct": 14.586836598082181
+          }
+        ],
+        "shape": [
+          {
+            "bin": "full-frame",
+            "n": 951,
+            "n_panoramas": 94,
+            "mean": 16.825528446181465,
+            "mean_pct": 10.622718983341134
+          },
+          {
+            "bin": "circular",
+            "n": 929,
+            "n_panoramas": 94,
+            "mean": 12.232540805706808,
+            "mean_pct": 10.921911433666791
+          }
+        ],
+        "category": [
+          {
+            "bin": "Abandoned & Ruins",
+            "n": 100,
+            "n_panoramas": 5,
+            "mean": 14.722809023857117,
+            "mean_pct": 10.941104809131625
+          },
+          {
+            "bin": "Coast & Water",
+            "n": 140,
+            "n_panoramas": 7,
+            "mean": 14.505436875138964,
+            "mean_pct": 10.610396162502665
+          },
+          {
+            "bin": "Desert & Arid",
+            "n": 20,
+            "n_panoramas": 1,
+            "mean": 15.303753972053528,
+            "mean_pct": 11.43752858867379
+          },
+          {
+            "bin": "Fields & Countryside",
+            "n": 240,
+            "n_panoramas": 12,
+            "mean": 13.842579506834348,
+            "mean_pct": 10.16699840557847
+          },
+          {
+            "bin": "Forest & Woodland",
+            "n": 120,
+            "n_panoramas": 6,
+            "mean": 15.58930154343446,
+            "mean_pct": 11.4740134829979
+          },
+          {
+            "bin": "Industrial",
+            "n": 40,
+            "n_panoramas": 2,
+            "mean": 12.549929881095887,
+            "mean_pct": 9.697513561392654
+          },
+          {
+            "bin": "Interiors",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 14.883800789288111,
+            "mean_pct": 11.077600210514419
+          },
+          {
+            "bin": "Mountains & Hills",
+            "n": 160,
+            "n_panoramas": 8,
+            "mean": 14.288776213675737,
+            "mean_pct": 10.50281632699632
+          },
+          {
+            "bin": "Parks & Gardens",
+            "n": 200,
+            "n_panoramas": 10,
+            "mean": 13.957146632671357,
+            "mean_pct": 10.318135051626246
+          },
+          {
+            "bin": "Streets & Town",
+            "n": 300,
+            "n_panoramas": 15,
+            "mean": 14.790791937907537,
+            "mean_pct": 11.04173853685029
+          },
+          {
+            "bin": "Studio",
+            "n": 280,
+            "n_panoramas": 14,
+            "mean": 14.92401082600866,
+            "mean_pct": 10.98984263999566
+          }
+        ],
+        "excluding_low_texture": {
+          "n": 1866,
+          "mean": 14.556350281320329,
+          "mean_pct": 10.777462738130701,
+          "mean_all": 14.555908489797977,
+          "mean_all_pct": 10.770564614379717
+        }
+      }
+    }
+  },
+  "line_checks": {
+    "val": {
+      "supersample": 4,
+      "n_images": 1880,
+      "n_nonzero_outside_mask": 0
+    },
+    "train_clean": {
+      "supersample": 4,
+      "n_images": 2000,
+      "n_nonzero_outside_mask": 0
+    }
+  },
+  "texture_line_crosstab": {
+    "median": 14.4360625,
+    "rows": [
+      {
+        "bin": "< 5",
+        "n": 14,
+        "n_panoramas": 5,
+        "n_low": 14,
+        "n_panoramas_low": 5,
+        "n_panoramas_high": 0,
+        "frac_low": 1.0,
+        "by": {
+          "resnet34": {
+            "low": 5.678383835724422,
+            "low_pct": 4.162788117736127,
+            "high": null,
+            "high_pct": null
+          },
+          "vit_small": {
+            "low": 5.2844959050416955,
+            "low_pct": 4.1144271105790216,
+            "high": null,
+            "high_pct": null
+          },
+          "resnet34_l1": {
+            "low": 9.338616149766105,
+            "low_pct": 6.385563343305235,
+            "high": null,
+            "high_pct": null
+          }
+        }
+      },
+      {
+        "bin": "Q1 [5.0-22.2]",
+        "n": 374,
+        "n_panoramas": 48,
+        "n_low": 291,
+        "n_panoramas_low": 43,
+        "n_panoramas_high": 24,
+        "frac_low": 0.7780748663101604,
+        "by": {
+          "resnet34": {
+            "low": 4.700338137467293,
+            "low_pct": 3.2895873364306665,
+            "high": 3.975385676725323,
+            "high_pct": 2.9505320159471613
+          },
+          "vit_small": {
+            "low": 4.0626456287155035,
+            "low_pct": 2.8676596283670546,
+            "high": 3.3528008127667337,
+            "high_pct": 2.4805216708516156
+          },
+          "resnet34_l1": {
+            "low": 5.234980259359498,
+            "low_pct": 3.6606391047629177,
+            "high": 4.252023745193539,
+            "high_pct": 3.20993701987771
+          }
+        }
+      },
+      {
+        "bin": "Q2 (22.2-28.6]",
+        "n": 373,
+        "n_panoramas": 68,
+        "n_low": 255,
+        "n_panoramas_low": 45,
+        "n_panoramas_high": 43,
+        "frac_low": 0.6836461126005362,
+        "by": {
+          "resnet34": {
+            "low": 4.26308361926889,
+            "low_pct": 3.2269569749098506,
+            "high": 3.920185647820686,
+            "high_pct": 2.8780317788882877
+          },
+          "vit_small": {
+            "low": 3.3962067535013154,
+            "low_pct": 2.6071533607849684,
+            "high": 3.602309670488713,
+            "high_pct": 2.657932399689854
+          },
+          "resnet34_l1": {
+            "low": 4.819049185799325,
+            "low_pct": 3.638438928371796,
+            "high": 4.97848883839482,
+            "high_pct": 3.637666438948951
+          }
+        }
+      },
+      {
+        "bin": "Q3 (28.6-36.7]",
+        "n": 373,
+        "n_panoramas": 64,
+        "n_low": 182,
+        "n_panoramas_low": 42,
+        "n_panoramas_high": 49,
+        "frac_low": 0.4879356568364611,
+        "by": {
+          "resnet34": {
+            "low": 4.459282597288108,
+            "low_pct": 3.298793119916789,
+            "high": 3.611946322140893,
+            "high_pct": 2.5983960862907645
+          },
+          "vit_small": {
+            "low": 3.7993875088054185,
+            "low_pct": 2.8681512801535587,
+            "high": 3.5447266294668065,
+            "high_pct": 2.594151737094714
+          },
+          "resnet34_l1": {
+            "low": 5.096604449121834,
+            "low_pct": 3.7732002404159593,
+            "high": 4.142135839889811,
+            "high_pct": 2.996870148986888
+          }
+        }
+      },
+      {
+        "bin": "Q4 (36.7-48.8]",
+        "n": 373,
+        "n_panoramas": 54,
+        "n_low": 130,
+        "n_panoramas_low": 30,
+        "n_panoramas_high": 49,
+        "frac_low": 0.3485254691689008,
+        "by": {
+          "resnet34": {
+            "low": 4.696464201578727,
+            "low_pct": 3.5468307436033597,
+            "high": 3.9578387975202176,
+            "high_pct": 2.9442174328223207
+          },
+          "vit_small": {
+            "low": 4.550656182108781,
+            "low_pct": 3.5414396026167965,
+            "high": 3.769713361219941,
+            "high_pct": 2.8294578671087383
+          },
+          "resnet34_l1": {
+            "low": 5.200078204961923,
+            "low_pct": 3.8737647956725763,
+            "high": 4.420572302867601,
+            "high_pct": 3.3069290681527987
+          }
+        }
+      },
+      {
+        "bin": "Q5 (48.8-109.6]",
+        "n": 373,
+        "n_panoramas": 38,
+        "n_low": 68,
+        "n_panoramas_low": 15,
+        "n_panoramas_high": 35,
+        "frac_low": 0.18230563002680966,
+        "by": {
+          "resnet34": {
+            "low": 5.143520765773514,
+            "low_pct": 3.872225941007742,
+            "high": 3.952590859994862,
+            "high_pct": 2.9790468990414416
+          },
+          "vit_small": {
+            "low": 5.346641043456746,
+            "low_pct": 3.9568403159391266,
+            "high": 3.8595704751954374,
+            "high_pct": 2.9465329404597016
+          },
+          "resnet34_l1": {
+            "low": 5.68474224604228,
+            "low_pct": 4.267314642854677,
+            "high": 4.8286673970154075,
+            "high_pct": 3.6463203859533557
+          }
+        }
+      }
+    ]
+  },
+  "fov_bias": {
+    "resnet34": {
+      "n_images": 1880,
+      "n_undefined": 0,
+      "mean": 3.8996022919250675,
+      "bins": [
+        {
+          "bin": "100-110",
+          "n": 218,
+          "n_panoramas": 89,
+          "mean": 9.253598746870548,
+          "p2_5": -1.095968182764738,
+          "p97_5": 29.0721147754469
+        },
+        {
+          "bin": "110-120",
+          "n": 228,
+          "n_panoramas": 91,
+          "mean": 5.807040661774883,
+          "p2_5": -7.740698041305318,
+          "p97_5": 23.257068238998972
+        },
+        {
+          "bin": "120-130",
+          "n": 193,
+          "n_panoramas": 85,
+          "mean": 5.392048510585562,
+          "p2_5": -10.160034934656101,
+          "p97_5": 25.557757361442352
+        },
+        {
+          "bin": "130-140",
+          "n": 193,
+          "n_panoramas": 80,
+          "mean": 3.487107110602398,
+          "p2_5": -11.123081156428302,
+          "p97_5": 22.531865497510516
+        },
+        {
+          "bin": "140-150",
+          "n": 195,
+          "n_panoramas": 81,
+          "mean": 4.087263117330089,
+          "p2_5": -14.44469409687459,
+          "p97_5": 24.80719355851722
+        },
+        {
+          "bin": "150-160",
+          "n": 177,
+          "n_panoramas": 83,
+          "mean": 2.523005956397322,
+          "p2_5": -13.207971587162648,
+          "p97_5": 24.746407083415505
+        },
+        {
+          "bin": "160-170",
+          "n": 123,
+          "n_panoramas": 68,
+          "mean": 4.269303555359417,
+          "p2_5": -13.249980564222744,
+          "p97_5": 28.29963848028412
+        },
+        {
+          "bin": "170-180",
+          "n": 140,
+          "n_panoramas": 74,
+          "mean": 3.893845534636001,
+          "p2_5": -12.38400290002224,
+          "p97_5": 21.57365988933643
+        },
+        {
+          "bin": "180-190",
+          "n": 122,
+          "n_panoramas": 65,
+          "mean": 3.6469455736605085,
+          "p2_5": -14.116244430830779,
+          "p97_5": 17.256457458160757
+        },
+        {
+          "bin": "190-200",
+          "n": 110,
+          "n_panoramas": 69,
+          "mean": 2.5921549946920366,
+          "p2_5": -15.61916609722751,
+          "p97_5": 14.82388283153337
+        },
+        {
+          "bin": "200-210",
+          "n": 88,
+          "n_panoramas": 63,
+          "mean": -2.4607743983261945,
+          "p2_5": -17.963817048109483,
+          "p97_5": 9.552746950427744
+        },
+        {
+          "bin": "210-220",
+          "n": 93,
+          "n_panoramas": 51,
+          "mean": -5.92561140260801,
+          "p2_5": -20.889805114957895,
+          "p97_5": 4.538633347741247
+        }
+      ],
+      "slope": {
+        "per_deg": -0.08540617695460329,
+        "ci_low": -0.09938652751908578,
+        "ci_high": -0.0725669357348693,
+        "n_boot": 1000,
+        "seed": 0
+      }
+    },
+    "vit_small": {
+      "n_images": 1880,
+      "n_undefined": 1,
+      "mean": 2.1512037025318085,
+      "bins": [
+        {
+          "bin": "100-110",
+          "n": 217,
+          "n_panoramas": 89,
+          "mean": 5.7508285492416675,
+          "p2_5": -2.970950191913443,
+          "p97_5": 20.261518632658966
+        },
+        {
+          "bin": "110-120",
+          "n": 228,
+          "n_panoramas": 91,
+          "mean": 3.317913619837571,
+          "p2_5": -8.074585778358827,
+          "p97_5": 22.36655530871863
+        },
+        {
+          "bin": "120-130",
+          "n": 193,
+          "n_panoramas": 85,
+          "mean": 2.656271955366183,
+          "p2_5": -10.81384253278785,
+          "p97_5": 18.106110109389245
+        },
+        {
+          "bin": "130-140",
+          "n": 193,
+          "n_panoramas": 80,
+          "mean": 1.6358359761518293,
+          "p2_5": -12.547492798697071,
+          "p97_5": 21.689117212760948
+        },
+        {
+          "bin": "140-150",
+          "n": 195,
+          "n_panoramas": 81,
+          "mean": 2.889274856595914,
+          "p2_5": -13.376295972378717,
+          "p97_5": 19.27853753658556
+        },
+        {
+          "bin": "150-160",
+          "n": 177,
+          "n_panoramas": 83,
+          "mean": 1.897399431388499,
+          "p2_5": -14.284144753424703,
+          "p97_5": 19.26337764941747
+        },
+        {
+          "bin": "160-170",
+          "n": 123,
+          "n_panoramas": 68,
+          "mean": 2.28788673256205,
+          "p2_5": -15.432731871250501,
+          "p97_5": 20.605180630403854
+        },
+        {
+          "bin": "170-180",
+          "n": 140,
+          "n_panoramas": 74,
+          "mean": 2.800798462477849,
+          "p2_5": -16.111390251243527,
+          "p97_5": 21.0337850818437
+        },
+        {
+          "bin": "180-190",
+          "n": 122,
+          "n_panoramas": 65,
+          "mean": 2.3478354216657618,
+          "p2_5": -13.70201733286355,
+          "p97_5": 21.289199658163206
+        },
+        {
+          "bin": "190-200",
+          "n": 110,
+          "n_panoramas": 69,
+          "mean": 1.5749268328404187,
+          "p2_5": -19.36019920564788,
+          "p97_5": 18.554017996005978
+        },
+        {
+          "bin": "200-210",
+          "n": 88,
+          "n_panoramas": 63,
+          "mean": -3.092339910627962,
+          "p2_5": -18.258929200324424,
+          "p97_5": 10.242800814829746
+        },
+        {
+          "bin": "210-220",
+          "n": 93,
+          "n_panoramas": 51,
+          "mean": -5.924744993532506,
+          "p2_5": -26.8935907567122,
+          "p97_5": 8.919446117747688
+        }
+      ],
+      "slope": {
+        "per_deg": -0.05979380639854798,
+        "ci_low": -0.07227671837957651,
+        "ci_high": -0.04637157220706192,
+        "n_boot": 1000,
+        "seed": 0
+      }
+    },
+    "resnet34_l1": {
+      "n_images": 1880,
+      "n_undefined": 2,
+      "mean": 0.43841204733270867,
+      "bins": [
+        {
+          "bin": "100-110",
+          "n": 218,
+          "n_panoramas": 89,
+          "mean": 7.751060592378524,
+          "p2_5": -5.384249181575593,
+          "p97_5": 27.9388279518099
+        },
+        {
+          "bin": "110-120",
+          "n": 226,
+          "n_panoramas": 91,
+          "mean": 3.1204293582377747,
+          "p2_5": -10.19142292767397,
+          "p97_5": 20.94405268657686
+        },
+        {
+          "bin": "120-130",
+          "n": 193,
+          "n_panoramas": 85,
+          "mean": 0.6590070173473874,
+          "p2_5": -15.569373855911197,
+          "p97_5": 17.187586781602036
+        },
+        {
+          "bin": "130-140",
+          "n": 193,
+          "n_panoramas": 80,
+          "mean": -0.7166784243655969,
+          "p2_5": -17.949078161126454,
+          "p97_5": 22.86674943819222
+        },
+        {
+          "bin": "140-150",
+          "n": 195,
+          "n_panoramas": 81,
+          "mean": -0.5944278394883239,
+          "p2_5": -20.223466342701755,
+          "p97_5": 17.821502296577027
+        },
+        {
+          "bin": "150-160",
+          "n": 177,
+          "n_panoramas": 83,
+          "mean": -0.13120233360323408,
+          "p2_5": -21.79159858895876,
+          "p97_5": 21.940871954074257
+        },
+        {
+          "bin": "160-170",
+          "n": 123,
+          "n_panoramas": 68,
+          "mean": 0.4134393120755921,
+          "p2_5": -19.74940030195324,
+          "p97_5": 25.479333864393812
+        },
+        {
+          "bin": "170-180",
+          "n": 140,
+          "n_panoramas": 74,
+          "mean": 0.609277631646727,
+          "p2_5": -26.228281463965917,
+          "p97_5": 21.496086455514327
+        },
+        {
+          "bin": "180-190",
+          "n": 122,
+          "n_panoramas": 65,
+          "mean": 0.048679437026070534,
+          "p2_5": -19.244056274873444,
+          "p97_5": 18.419243494992802
+        },
+        {
+          "bin": "190-200",
+          "n": 110,
+          "n_panoramas": 69,
+          "mean": -1.2850780512285092,
+          "p2_5": -18.22617372771063,
+          "p97_5": 15.032796837538374
+        },
+        {
+          "bin": "200-210",
+          "n": 88,
+          "n_panoramas": 63,
+          "mean": -5.536365172524625,
+          "p2_5": -22.68118430089413,
+          "p97_5": 11.872741637876182
+        },
+        {
+          "bin": "210-220",
+          "n": 93,
+          "n_panoramas": 51,
+          "mean": -10.052426561533716,
+          "p2_5": -25.34289306917875,
+          "p97_5": 4.438745768584463
+        }
+      ],
+      "slope": {
+        "per_deg": -0.094377287044232,
+        "ci_low": -0.11229422471456789,
+        "ci_high": -0.0773270251393955,
+        "n_boot": 1000,
+        "seed": 0
+      }
+    }
+  },
+  "stress": null,
+  "worst": {
+    "resnet34": [
+      {
+        "asset_id": "rustig_koppie",
+        "view_idx": 5,
+        "error_px": 22.92445119222005,
+        "f": 419.22078657397594,
+        "xi": 1.4914244094848779,
+        "pred_f": 319.440185546875,
+        "pred_xi": 1.6345727443695068,
+        "fov_deg": 105.01873131786446,
+        "texture": 27.9043,
+        "circular": false
+      },
+      {
+        "asset_id": "skate_park",
+        "view_idx": 0,
+        "error_px": 20.76911989847819,
+        "f": 336.65886885658597,
+        "xi": 1.0149452639051377,
+        "pred_f": 409.44903564453125,
+        "pred_xi": 2.0196728706359863,
+        "fov_deg": 101.59164190239484,
+        "texture": 22.5104,
+        "circular": false
+      },
+      {
+        "asset_id": "spruit_sunrise",
+        "view_idx": 16,
+        "error_px": 19.9088617960612,
+        "f": 206.80913037986858,
+        "xi": 0.9098986783175625,
+        "pred_f": 282.15283203125,
+        "pred_xi": 1.0686815977096558,
+        "fov_deg": 142.07712917956798,
+        "texture": 36.6499,
+        "circular": false
+      },
+      {
+        "asset_id": "chapmans_drive",
+        "view_idx": 10,
+        "error_px": 19.7422358194987,
+        "f": 292.3618995895171,
+        "xi": 0.9505353802187491,
+        "pred_f": 318.4745788574219,
+        "pred_xi": 1.7551002502441406,
+        "fov_deg": 110.74018679349217,
+        "texture": 30.5201,
+        "circular": false
+      },
+      {
+        "asset_id": "veld_fire",
+        "view_idx": 17,
+        "error_px": 19.456871668497723,
+        "f": 314.05544156749784,
+        "xi": 1.3576672537770005,
+        "pred_f": 251.49159240722656,
+        "pred_xi": 1.6110552549362183,
+        "fov_deg": 128.90576705197037,
+        "texture": 37.0025,
+        "circular": false
+      },
+      {
+        "asset_id": "greenwich_park_02",
+        "view_idx": 19,
+        "error_px": 17.62899398803711,
+        "f": 112.72735617864386,
+        "xi": 0.9526005840120939,
+        "pred_f": 140.8468017578125,
+        "pred_xi": 1.026790976524353,
+        "fov_deg": 210.93297697313335,
+        "texture": 76.597,
+        "circular": false
+      },
+      {
+        "asset_id": "veld_fire",
+        "view_idx": 7,
+        "error_px": 17.527655601501465,
+        "f": 176.89722782139438,
+        "xi": 0.9315656679700419,
+        "pred_f": 155.2916259765625,
+        "pred_xi": 1.1774502992630005,
+        "fov_deg": 160.52089954048995,
+        "texture": 35.5108,
+        "circular": false
+      },
+      {
+        "asset_id": "small_rural_road",
+        "view_idx": 0,
+        "error_px": 16.58218256632487,
+        "f": 314.31605800104995,
+        "xi": 1.376501366667611,
+        "pred_f": 234.22142028808594,
+        "pred_xi": 1.2965079545974731,
+        "fov_deg": 130.0410182628179,
+        "texture": 14.8323,
+        "circular": false
+      }
+    ],
+    "vit_small": [
+      {
+        "asset_id": "white_studio_06",
+        "view_idx": 5,
+        "error_px": 21.14004643758138,
+        "f": 285.20703136598496,
+        "xi": 0.9709266745742262,
+        "pred_f": 198.89767456054688,
+        "pred_xi": 1.0414893627166748,
+        "fov_deg": 114.34169844159975,
+        "texture": 5.4625,
+        "circular": false
+      },
+      {
+        "asset_id": "greenwich_park_02",
+        "view_idx": 19,
+        "error_px": 20.607097625732422,
+        "f": 112.72735617864386,
+        "xi": 0.9526005840120939,
+        "pred_f": 127.0706558227539,
+        "pred_xi": 0.6968101859092712,
+        "fov_deg": 210.93297697313335,
+        "texture": 76.597,
+        "circular": false
+      },
+      {
+        "asset_id": "white_studio_06",
+        "view_idx": 6,
+        "error_px": 19.95986493428548,
+        "f": 83.57611032295304,
+        "xi": 0.2875788827717664,
+        "pred_f": 277.07403564453125,
+        "pred_xi": 1.4993468523025513,
+        "fov_deg": 133.1890759465556,
+        "texture": 3.9526,
+        "circular": true
+      },
+      {
+        "asset_id": "squash_court",
+        "view_idx": 3,
+        "error_px": 18.948182423909504,
+        "f": 146.1011910224966,
+        "xi": 0.33887460722094004,
+        "pred_f": 303.41607666015625,
+        "pred_xi": 0.8798061609268188,
+        "fov_deg": 123.47025118520611,
+        "texture": 9.4954,
+        "circular": false
+      },
+      {
+        "asset_id": "greenwich_park_02",
+        "view_idx": 10,
+        "error_px": 18.55884838104248,
+        "f": 109.12407493302932,
+        "xi": 0.8512105974487036,
+        "pred_f": 150.3192138671875,
+        "pred_xi": 0.9176203012466431,
+        "fov_deg": 199.87812466986745,
+        "texture": 77.4529,
+        "circular": false
+      },
+      {
+        "asset_id": "preller_drive",
+        "view_idx": 6,
+        "error_px": 17.831544876098633,
+        "f": 120.74409220498455,
+        "xi": 1.0560619506148257,
+        "pred_f": 158.94810485839844,
+        "pred_xi": 1.106162667274475,
+        "fov_deg": 219.6132859875092,
+        "texture": 58.3788,
+        "circular": false
+      },
+      {
+        "asset_id": "wrestling_gym",
+        "view_idx": 12,
+        "error_px": 17.374897956848145,
+        "f": 129.8604720477084,
+        "xi": 0.39842804273883764,
+        "pred_f": 186.0822296142578,
+        "pred_xi": 0.4498758316040039,
+        "fov_deg": 137.1964530190064,
+        "texture": 19.6272,
+        "circular": false
+      },
+      {
+        "asset_id": "courtyard_night",
+        "view_idx": 3,
+        "error_px": 17.356003443400066,
+        "f": 214.41984074911522,
+        "xi": 0.747035900312685,
+        "pred_f": 248.46456909179688,
+        "pred_xi": 0.7335563898086548,
+        "fov_deg": 125.60793923365819,
+        "texture": 39.7931,
+        "circular": false
+      }
+    ],
+    "resnet34_l1": [
+      {
+        "asset_id": "chapmans_drive",
+        "view_idx": 10,
+        "error_px": 31.605697631835938,
+        "f": 292.3618995895171,
+        "xi": 0.9505353802187491,
+        "pred_f": 146.27883911132812,
+        "pred_xi": 0.7085689306259155,
+        "fov_deg": 110.74018679349217,
+        "texture": 30.5201,
+        "circular": false
+      },
+      {
+        "asset_id": "squash_court",
+        "view_idx": 3,
+        "error_px": 25.819021224975586,
+        "f": 146.1011910224966,
+        "xi": 0.33887460722094004,
+        "pred_f": 266.3813781738281,
+        "pred_xi": 0.6703529357910156,
+        "fov_deg": 123.47025118520611,
+        "texture": 9.4954,
+        "circular": false
+      },
+      {
+        "asset_id": "zwinger_night",
+        "view_idx": 17,
+        "error_px": 24.24951934814453,
+        "f": 168.45579831587375,
+        "xi": 1.293165822760624,
+        "pred_f": 220.12741088867188,
+        "pred_xi": 1.2685807943344116,
+        "fov_deg": 211.1807407197815,
+        "texture": 26.1217,
+        "circular": false
+      },
+      {
+        "asset_id": "rustig_koppie",
+        "view_idx": 5,
+        "error_px": 21.976680755615234,
+        "f": 419.22078657397594,
+        "xi": 1.4914244094848779,
+        "pred_f": 272.91162109375,
+        "pred_xi": 1.2759300470352173,
+        "fov_deg": 105.01873131786446,
+        "texture": 27.9043,
+        "circular": false
+      },
+      {
+        "asset_id": "veld_fire",
+        "view_idx": 16,
+        "error_px": 21.41905403137207,
+        "f": 334.6933097073156,
+        "xi": 1.0931028485205179,
+        "pred_f": 274.569091796875,
+        "pred_xi": 1.3523621559143066,
+        "fov_deg": 106.40690475543306,
+        "texture": 36.0139,
+        "circular": false
+      },
+      {
+        "asset_id": "white_studio_01",
+        "view_idx": 19,
+        "error_px": 21.260658264160156,
+        "f": 195.3014240012788,
+        "xi": 0.5964554058983698,
+        "pred_f": 335.2937927246094,
+        "pred_xi": 1.0194417238235474,
+        "fov_deg": 122.22078568763138,
+        "texture": 1.0187,
+        "circular": false
+      },
+      {
+        "asset_id": "rosendal_mountain_midmorning",
+        "view_idx": 10,
+        "error_px": 20.342594146728516,
+        "f": 171.69090909641108,
+        "xi": 1.2976137147247244,
+        "pred_f": 228.61705017089844,
+        "pred_xi": 1.3641209602355957,
+        "fov_deg": 208.6388916415378,
+        "texture": 37.5187,
+        "circular": false
+      },
+      {
+        "asset_id": "small_rural_road",
+        "view_idx": 19,
+        "error_px": 20.181997299194336,
+        "f": 104.57807285091036,
+        "xi": 0.7800851759709722,
+        "pred_f": 146.94459533691406,
+        "pred_xi": 0.7680977582931519,
+        "fov_deg": 163.44981615594594,
+        "texture": 17.083,
+        "circular": true
+      }
+    ]
+  },
+  "figures": {
+    "error_vs_texture": "results/figures/val_error_vs_texture.png",
+    "error_vs_fov": "results/figures/val_error_vs_fov.png",
+    "error_vs_line_score": "results/figures/val_error_vs_line_score.png",
+    "fov_bias": "results/figures/val_fov_bias.png",
+    "worst_resnet34": "results/figures/val_worst_resnet34.png",
+    "worst_vit_small": "results/figures/val_worst_vit_small.png",
+    "worst_resnet34_l1": "results/figures/val_worst_resnet34_l1.png"
+  }
+}

@@ -20,6 +20,7 @@ gets logged to MLflow.
 from __future__ import annotations
 
 import argparse
+import gc
 import hashlib
 import json
 import math
@@ -397,6 +398,50 @@ def _infinite(loader: DataLoader, sampler: EpochSampler) -> Iterator[tuple[int, 
         epoch += 1
 
 
+def shutdown_loader(loader: DataLoader | None) -> None:
+    """Stop a DataLoader's worker processes now, not at interpreter exit.
+
+    With ``persistent_workers=True`` the loader parks its worker iterator in
+    ``loader._iterator`` between epochs, so the workers live exactly as long as
+    the loader does.  Left to garbage collection that is fragile: if
+    ``train()`` raises, the traceback pins the frame, the frame pins the
+    loader, and the workers stay up for as long as anyone holds the exception
+    -- and whatever survives to shutdown has its queue finalizers run inside
+    ``atexit``, which is where "dictionary changed size during iteration"
+    comes from.  Shutting down explicitly makes the lifetime deterministic.
+
+    ``_shutdown_workers`` is private, but it is what the iterator's own
+    ``__del__`` calls, and it is idempotent.
+    """
+    if loader is None:
+        return
+    iterator = getattr(loader, "_iterator", None)
+    if iterator is not None:
+        shutdown = getattr(iterator, "_shutdown_workers", None)
+        if callable(shutdown):
+            shutdown()
+        loader._iterator = None
+
+
+def release_loaders(
+    *loaders: DataLoader | None, generators: Sequence[Iterator[Any] | None] = ()
+) -> None:
+    """Close the batch generators, stop the workers, then reclaim memory.
+
+    The generators go first: a suspended ``_infinite`` still holds a live
+    iterator over its loader, and closing it lets that reference go before
+    the workers are stopped.
+    """
+    for generator in generators:
+        if generator is not None:
+            generator.close()
+    for loader in loaders:
+        shutdown_loader(loader)
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+
 def train(
     cfg: TrainConfig,
     device: torch.device | None = None,
@@ -404,123 +449,146 @@ def train(
     out_dir: str | Path | None = None,
     log=print,
 ) -> dict[str, Any]:
-    """Run the full loop and return the best metrics."""
+    """Run the full loop and return the best metrics.
+
+    Everything that owns worker processes or GPU memory is released in a
+    ``finally``, so a run that raises -- an OOM, a bad batch -- does not leave
+    workers and weights pinned by its traceback while a sweep moves on to the
+    next arm.
+    """
     import mlflow
 
     device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
     torch.manual_seed(cfg.seed)
     np.random.seed(cfg.seed)
 
-    norm_stats = load_norm_stats(cfg.data.root)
-    train_set = build_dataset(cfg, "train", train=True)
-    val_set = build_dataset(cfg, "val", train=False)
-    train_loader, train_sampler = build_loader(cfg, train_set, train=True)
-    val_loader, val_sampler = build_loader(cfg, val_set, train=False)
+    train_loader: DataLoader | None = None
+    val_loader: DataLoader | None = None
+    batches: Iterator[tuple[int, Any]] | None = None
+    model: torch.nn.Module | None = None
+    optimiser: torch.optim.Optimizer | None = None
 
-    model = build_model(cfg, device)
-    optimiser = build_optimizer(model, cfg)
-    scheduler = torch.optim.lr_scheduler.LambdaLR(
-        optimiser,
-        lambda step: lr_scale(step, cfg.total_steps, cfg.optim.warmup_steps),
-    )
+    try:
+        norm_stats = load_norm_stats(cfg.data.root)
+        train_set = build_dataset(cfg, "train", train=True)
+        val_set = build_dataset(cfg, "val", train=False)
+        train_loader, train_sampler = build_loader(cfg, train_set, train=True)
+        val_loader, val_sampler = build_loader(cfg, val_set, train=False)
 
-    out_dir = Path(out_dir) if out_dir else PROJECT_ROOT / "checkpoints"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    best_path = out_dir / f"{cfg.run_name}_best.pt"
-
-    mlflow.set_tracking_uri(tracking_uri)
-    mlflow.set_experiment("fisheye-calib")
-
-    best = math.inf
-    best_metrics: dict[str, float] = {}
-    started = time.time()
-
-    with mlflow.start_run(run_name=cfg.run_name):
-        mlflow.log_params(cfg.flat())
-        mlflow.set_tags(
-            {
-                "git_commit": git_commit(),
-                "train_meta_sha256": meta_hash(cfg.data.root),
-                "device": str(device),
-                "n_train": len(train_set),
-                "n_val": len(val_set),
-            }
-        )
-        log(
-            f"{cfg.run_name}: {cfg.model} on {device}, "
-            f"{len(train_set)} train / {len(val_set)} val, "
-            f"{cfg.total_steps} steps of batch {cfg.batch_size}"
+        model = build_model(cfg, device)
+        optimiser = build_optimizer(model, cfg)
+        scheduler = torch.optim.lr_scheduler.LambdaLR(
+            optimiser,
+            lambda step: lr_scale(step, cfg.total_steps, cfg.optim.warmup_steps),
         )
 
-        model.train()
-        batches = _infinite(train_loader, train_sampler)
-        for step in range(cfg.total_steps):
-            epoch, batch = next(batches)
-            image, target, f_gt, xi_gt, theta_ref = _to_device(
-                batch, device, uses_channels_last(cfg.model)
+        out_dir = Path(out_dir) if out_dir else PROJECT_ROOT / "checkpoints"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        best_path = out_dir / f"{cfg.run_name}_best.pt"
+
+        mlflow.set_tracking_uri(tracking_uri)
+        mlflow.set_experiment("fisheye-calib")
+
+        best = math.inf
+        best_metrics: dict[str, float] = {}
+        started = time.time()
+
+        with mlflow.start_run(run_name=cfg.run_name):
+            mlflow.log_params(cfg.flat())
+            mlflow.set_tags(
+                {
+                    "git_commit": git_commit(),
+                    "train_meta_sha256": meta_hash(cfg.data.root),
+                    "device": str(device),
+                    "n_train": len(train_set),
+                    "n_val": len(val_set),
+                }
+            )
+            log(
+                f"{cfg.run_name}: {cfg.model} on {device}, "
+                f"{len(train_set)} train / {len(val_set)} val, "
+                f"{cfg.total_steps} steps of batch {cfg.batch_size}"
             )
 
-            with autocast(cfg, device):
-                pred = model(image)
-            loss = compute_loss(
-                cfg.loss, pred.float(), target, f_gt, xi_gt, theta_ref, norm_stats
-            )
-
-            optimiser.zero_grad(set_to_none=True)
-            loss.backward()
-            grad_norm = torch.nn.utils.clip_grad_norm_(
-                model.parameters(), cfg.grad_clip
-            )
-            optimiser.step()
-            scheduler.step()
-
-            if step % 50 == 0 or step == cfg.total_steps - 1:
-                mlflow.log_metrics(
-                    {
-                        "train_loss": float(loss.detach()),
-                        "grad_norm": float(grad_norm),
-                        "lr": float(scheduler.get_last_lr()[0]),
-                        "epoch": float(epoch),
-                    },
-                    step=step,
+            model.train()
+            batches = _infinite(train_loader, train_sampler)
+            for step in range(cfg.total_steps):
+                epoch, batch = next(batches)
+                image, target, f_gt, xi_gt, theta_ref = _to_device(
+                    batch, device, uses_channels_last(cfg.model)
                 )
 
-            is_last = step == cfg.total_steps - 1
-            if (step + 1) % cfg.eval_every == 0 or is_last:
-                metrics = evaluate(
-                    model, val_loader, val_sampler, norm_stats, device, cfg
+                with autocast(cfg, device):
+                    pred = model(image)
+                loss = compute_loss(
+                    cfg.loss, pred.float(), target, f_gt, xi_gt, theta_ref, norm_stats
                 )
-                mlflow.log_metrics(metrics, step=step)
-                log(
-                    f"  step {step + 1}/{cfg.total_steps} "
-                    f"train_loss {float(loss.detach()):.4f}  "
-                    f"val_reproj {metrics['val_reproj_mean_px']:.2f} px  "
-                    f"f_mae {metrics['val_f_mae_px']:.2f}  "
-                    f"xi_mae {metrics['val_xi_mae']:.4f}"
+
+                optimiser.zero_grad(set_to_none=True)
+                loss.backward()
+                grad_norm = torch.nn.utils.clip_grad_norm_(
+                    model.parameters(), cfg.grad_clip
                 )
-                if metrics["val_reproj_mean_px"] < best:
-                    best = metrics["val_reproj_mean_px"]
-                    best_metrics = dict(metrics)
-                    torch.save(
+                optimiser.step()
+                scheduler.step()
+
+                if step % 50 == 0 or step == cfg.total_steps - 1:
+                    mlflow.log_metrics(
                         {
-                            "model": model.state_dict(),
-                            "config": cfg.flat(),
-                            "step": step,
-                            "metrics": metrics,
-                            "norm_stats": dict(norm_stats),
+                            "train_loss": float(loss.detach()),
+                            "grad_norm": float(grad_norm),
+                            "lr": float(scheduler.get_last_lr()[0]),
+                            "epoch": float(epoch),
                         },
-                        best_path,
+                        step=step,
                     )
 
-        if best_path.is_file():
-            mlflow.log_artifact(str(best_path))
-        mlflow.log_metrics(
-            {"best_val_reproj_mean_px": best, "elapsed_sec": time.time() - started}
-        )
+                is_last = step == cfg.total_steps - 1
+                if (step + 1) % cfg.eval_every == 0 or is_last:
+                    metrics = evaluate(
+                        model, val_loader, val_sampler, norm_stats, device, cfg
+                    )
+                    mlflow.log_metrics(metrics, step=step)
+                    log(
+                        f"  step {step + 1}/{cfg.total_steps} "
+                        f"train_loss {float(loss.detach()):.4f}  "
+                        f"val_reproj {metrics['val_reproj_mean_px']:.2f} px  "
+                        f"f_mae {metrics['val_f_mae_px']:.2f}  "
+                        f"xi_mae {metrics['val_xi_mae']:.4f}"
+                    )
+                    if metrics["val_reproj_mean_px"] < best:
+                        best = metrics["val_reproj_mean_px"]
+                        best_metrics = dict(metrics)
+                        torch.save(
+                            {
+                                "model": model.state_dict(),
+                                "config": cfg.flat(),
+                                "step": step,
+                                "metrics": metrics,
+                                "norm_stats": dict(norm_stats),
+                            },
+                            best_path,
+                        )
 
-    log(f"best val reprojection error: {best:.3f} px -> {best_path}")
-    return {"best_val_reproj_mean_px": best, "best_metrics": best_metrics,
-            "checkpoint": str(best_path)}
+            if best_path.is_file():
+                mlflow.log_artifact(str(best_path))
+            mlflow.log_metrics(
+                {"best_val_reproj_mean_px": best, "elapsed_sec": time.time() - started}
+            )
+
+        log(f"best val reprojection error: {best:.3f} px -> {best_path}")
+        return {"best_val_reproj_mean_px": best, "best_metrics": best_metrics,
+                "checkpoint": str(best_path)}
+    finally:
+        release_loaders(train_loader, val_loader, generators=(batches,))
+        # Drop the frame's own references too: if an exception is propagating,
+        # its traceback keeps this frame alive, and these would otherwise keep
+        # the loaders and the weights on the GPU with it.
+        batches = train_loader = val_loader = None
+        model = optimiser = None
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
 
 # --- diagnostic modes -------------------------------------------------------
@@ -539,8 +607,14 @@ def overfit_batch(cfg: TrainConfig, steps: int, device: torch.device | None = No
     norm_stats = load_norm_stats(cfg.data.root)
     dataset = build_dataset(cfg, "train", train=False)  # no augmentation
     loader, sampler = build_loader(cfg, dataset, train=False)
-    sampler.set_epoch(0)
-    batch = next(iter(loader))
+    try:
+        sampler.set_epoch(0)
+        batch = next(iter(loader))
+    finally:
+        # One batch is all this mode needs; stop the workers before training
+        # rather than keeping them idle for every remaining step.
+        release_loaders(loader)
+        loader = None
 
     model = build_model(cfg, device)
     model.train()
@@ -610,29 +684,35 @@ def benchmark(cfg: TrainConfig, steps: int, device: torch.device | None = None,
     started = 0.0
     batches = _infinite(loader, sampler)
 
-    for step in range(steps + warmup):
-        _epoch, batch = next(batches)
-        image, target, f_gt, xi_gt, theta_ref = _to_device(batch, device, channels_last)
-        with autocast(cfg, device):
-            pred = model(image)
-        loss = compute_loss(
-            cfg.loss, pred.float(), target, f_gt, xi_gt, theta_ref, norm_stats
-        )
-        optimiser.zero_grad(set_to_none=True)
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), cfg.grad_clip)
-        optimiser.step()
+    try:
+        for step in range(steps + warmup):
+            _epoch, batch = next(batches)
+            image, target, f_gt, xi_gt, theta_ref = _to_device(
+                batch, device, channels_last
+            )
+            with autocast(cfg, device):
+                pred = model(image)
+            loss = compute_loss(
+                cfg.loss, pred.float(), target, f_gt, xi_gt, theta_ref, norm_stats
+            )
+            optimiser.zero_grad(set_to_none=True)
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), cfg.grad_clip)
+            optimiser.step()
 
-        if step == warmup - 1:
-            # Start the clock only once the pipeline and allocator have settled.
-            if device.type == "cuda":
-                torch.cuda.synchronize()
-            started = time.time()
-        elif step >= warmup:
-            images += image.shape[0]
+            if step == warmup - 1:
+                # Start the clock only once the pipeline and allocator have settled.
+                if device.type == "cuda":
+                    torch.cuda.synchronize()
+                started = time.time()
+            elif step >= warmup:
+                images += image.shape[0]
 
-    if device.type == "cuda":
-        torch.cuda.synchronize()
+        if device.type == "cuda":
+            torch.cuda.synchronize()
+    finally:
+        release_loaders(loader, generators=(batches,))
+        batches = loader = None
     elapsed = time.time() - started
     peak = (
         torch.cuda.max_memory_allocated(device) / 2**30 if device.type == "cuda" else 0.0

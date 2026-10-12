@@ -689,3 +689,114 @@ def test_training_runs_with_the_split_param_groups(
     result = train(cfg, device=torch.device("cpu"), tracking_uri=tracking_uri,
                    out_dir=tmp_path / "ckpt", log=lambda _m: None)
     assert math.isfinite(result["best_val_reproj_mean_px"])
+
+
+# --- DataLoader worker cleanup ----------------------------------------------
+
+
+def _live_children() -> list:
+    import multiprocessing
+
+    # active_children() also reaps finished ones, so a non-empty result means
+    # processes that are genuinely still running.
+    return multiprocessing.active_children()
+
+
+def test_consecutive_runs_leave_no_worker_processes(
+    data_root: Path, tmp_path: Path, tracking_uri: str
+) -> None:
+    """Two back-to-back runs, as in a sweep, must not accumulate workers.
+
+    Note that on the normal return path CPython's refcounting usually reaps the
+    workers on its own, so this test guards the behaviour rather than proving
+    the fix; the exception-path test below is the one that fails without it.
+    """
+    assert _live_children() == []
+    for attempt in (1, 2):
+        cfg = tiny_config(data_root, run_name=f"workers_{attempt}", num_workers=2)
+        train(cfg, device=torch.device("cpu"), tracking_uri=tracking_uri,
+              out_dir=tmp_path / "ckpt", log=lambda _m: None)
+    assert _live_children() == [], "persistent workers outlived train()"
+
+
+def test_a_failing_run_does_not_pin_its_workers(
+    data_root: Path, tmp_path: Path, tracking_uri: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The case the try/finally exists for.
+
+    A raised exception's traceback keeps train()'s frame alive, and before the
+    fix that frame kept the loaders -- and their worker processes -- alive for
+    as long as anyone held the exception. A sweep logging the error, or this
+    very test holding it via pytest.raises, is exactly such a holder. Without
+    the fix this test sees two live workers.
+    """
+    calls = {"n": 0}
+    real = train_module.compute_loss
+
+    def fail_on_third_step(*args, **kwargs):
+        calls["n"] += 1
+        if calls["n"] == 3:
+            raise RuntimeError("simulated failure at step 3")
+        return real(*args, **kwargs)
+
+    monkeypatch.setattr(train_module, "compute_loss", fail_on_third_step)
+    cfg = tiny_config(data_root, run_name="workers_fail", num_workers=2)
+
+    with pytest.raises(RuntimeError, match="simulated failure") as excinfo:
+        train(cfg, device=torch.device("cpu"), tracking_uri=tracking_uri,
+              out_dir=tmp_path / "ckpt", log=lambda _m: None)
+
+    assert excinfo.value is not None  # the exception (and its traceback) is held
+    assert _live_children() == [], "a failed run left its workers running"
+
+
+def test_shutdown_loader_is_safe_on_any_loader(data_root: Path) -> None:
+    """None, a worker-less loader, and a second call must all be no-ops."""
+    train_module.shutdown_loader(None)
+
+    cfg = tiny_config(data_root, num_workers=0)
+    loader, _sampler = build_loader(cfg, build_dataset(cfg, "val", False), False)
+    next(iter(loader))
+    train_module.shutdown_loader(loader)
+    train_module.shutdown_loader(loader)
+
+
+def test_shutdown_loader_stops_persistent_workers(data_root: Path) -> None:
+    cfg = tiny_config(data_root, num_workers=2)
+    loader, sampler = build_loader(cfg, build_dataset(cfg, "val", False), False)
+    sampler.set_epoch(0)
+    for _batch in loader:
+        pass
+    # persistent_workers keeps them alive after the epoch ends ...
+    assert len(_live_children()) == 2
+    # ... until they are shut down explicitly.
+    train_module.shutdown_loader(loader)
+    assert _live_children() == []
+    assert loader._iterator is None
+
+
+def test_sweep_collects_garbage_after_every_arm(
+    data_root: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import sweep as sweep_module
+
+    listing = tmp_path / "arms.txt"
+    bad = tmp_path / "bad.yaml"
+    bad.write_text(yaml.safe_dump({"not_a_key": 1}), encoding="utf-8")
+    listing.write_text(f"{bad}\n{bad}\n{bad}\n", encoding="utf-8")
+
+    collected = {"n": 0}
+    real_collect = sweep_module.gc.collect
+
+    def counting_collect(*args, **kwargs):
+        collected["n"] += 1
+        return real_collect(*args, **kwargs)
+
+    monkeypatch.setattr(sweep_module.gc, "collect", counting_collect)
+    summary = sweep_module.run_sweep(
+        listing, tracking_uri=f"sqlite:///{(tmp_path / 'm.db').as_posix()}",
+        log=lambda _m: None,
+    )
+    assert summary.failed == 3
+    assert collected["n"] >= 3, "gc.collect() must run once per arm"

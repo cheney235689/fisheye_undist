@@ -1,0 +1,45 @@
+# Final evaluation (SPEC.md 1.4.1 item 4). Read by evaluate.py, the only
+# program in the project that may open the test and stress splits -- and even
+# it does so only when run with --final.
+#
+# Each run is loaded from <checkpoints_dir>/<run_name>_best.pt and must match
+# its MLflow record: the val reprojection error recomputed here has to agree
+# with best_val_reproj_mean_px to within 0.01 px.
+
+data_root: data_root
+checkpoints_dir: checkpoints
+
+# Model groups. A group with several runs is reported as the mean +/- std over
+# its seeds; per-image analyses use the error averaged over the seeds.
+groups:
+  resnet34:
+    - resnet34_pre_p100_geo_lr3e-3_s0
+    - resnet34_pre_p100_geo_lr3e-3_s1
+    - resnet34_pre_p100_geo_lr3e-3_s2
+  vit_small:
+    - vit_small_pre_p100_geo_lr5e-5_s0
+    - vit_small_pre_p100_geo_lr5e-5_s1
+    - vit_small_pre_p100_geo_lr5e-5_s2
+  resnet34_l1:
+    - resnet34_pre_p100_l1_lr3e-3_s0
+
+# Paired comparison on the same images: the first group minus the second.
+comparison: [vit_small, resnet34]
+
+# A clean (unaugmented) sample of train, for the generalisation gap.
+train_clean: { n: 2000, seed: 0 }
+
+# Cluster bootstrap over panoramas for the paired comparison.
+bootstrap: { n: 1000, seed: 0 }
+
+# Constant baselines (tools/baseline.py), fixed on train.
+baselines: { grid: 100, xi_max: 3.0 }
+
+# Inference. batch_size null = each run's own training batch size, so the
+# sanity check reproduces the exact evaluation the run was selected with.
+batch_size: null
+num_workers: 0
+
+worst_k: 8
+perspective_fov_deg: 100
+out_dir: results

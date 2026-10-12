@@ -25,3 +25,6 @@ scratch/
 
 # MLflow local SQLite backend (SPEC.md 3.13)
 mlflow.db
+
+# evaluate.py per-sample tables (regenerable; summary.md and figures/ are kept)
+results/per_sample/
